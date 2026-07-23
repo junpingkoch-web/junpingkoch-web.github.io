@@ -20,17 +20,32 @@
     .wrap{ max-width:720px; margin:0 auto; padding:56px 20px 64px; }
     header{ text-align:center; margin-bottom:40px; }
     h1{ font-family:var(--font-display); font-size:clamp(26px,4vw,36px); margin:0 0 12px; color:var(--accent-strong); }
-    p.lede{ color:var(--ink-soft); font-size:16px; max-width:52ch; margin:0 auto; }
-    .tools{ display:grid; gap:20px; }
-    .tool-card{
-      background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:22px 24px;
-      text-decoration:none; color:inherit; display:block; transition:transform .12s ease, box-shadow .12s ease;
+    p.lede{ color:var(--ink-soft); font-size:16px; max-width:56ch; margin:0 auto 12px; }
+    p.lede:last-child{ margin-bottom:0; }
+    p.lede.en{ font-style:italic; }
+
+    .tools{ display:grid; gap:44px; margin-top:48px; }
+    .tool-section{
+      background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:26px 26px 24px;
       box-shadow:0 1px 2px rgba(0,0,0,.04);
     }
-    .tool-card:hover{ transform:translateY(-2px); box-shadow:0 8px 20px -8px rgba(0,0,0,.15); }
-    .tool-card h2{ font-family:var(--font-display); font-size:20px; margin:0 0 8px; color:var(--ink); }
-    .tool-card p{ margin:0; color:var(--ink-soft); font-size:14.5px; }
-    .tool-card .en{ margin-top:6px; font-style:italic; }
+    .tool-section h2{ font-family:var(--font-display); font-size:22px; margin:0 0 14px; color:var(--ink); }
+    .tool-section .article p{ margin:0 0 12px; font-size:15px; color:var(--ink); max-width:66ch; }
+    .tool-section .article p.en{ font-style:italic; color:var(--ink-soft); }
+    .tool-section .article::after{ content:""; display:table; clear:both; }
+
+    .tool-figure{ float:right; width:220px; margin:2px 0 14px 20px; }
+    .tool-figure img{ width:100%; height:auto; display:block; border-radius:10px; box-shadow:0 6px 16px -6px rgba(0,0,0,.25); }
+    .tool-figure figcaption{ font-size:11.5px; color:var(--ink-soft); font-style:italic; margin-top:6px; text-align:center; }
+    @media (max-width:560px){ .tool-figure{ float:none; width:100%; max-width:280px; margin:0 auto 16px; } }
+
+    .cta-btn{
+      display:inline-block; margin-top:6px; text-decoration:none; font-weight:700; font-size:14.5px;
+      color:var(--accent-strong); border:1px solid var(--accent); border-radius:999px; padding:9px 18px;
+      transition:background .12s ease, color .12s ease;
+    }
+    .cta-btn:hover{ background:var(--accent); color:#fff; }
+
     footer{ text-align:center; margin-top:48px; font-size:12.5px; color:var(--ink-soft); }
   </style>
 </head>
@@ -38,28 +53,51 @@
   <div class="wrap">
     <header>
       <h1>Junping Koch</h1>
-      <p class="lede">Ich baue kleine, kostenlose Web-Tools, die komplett im Browser laufen — ohne Anmeldung und ohne Datenspeicherung auf einem Server.</p>
-      <p class="lede en"><em>I build small, free web tools that run entirely in your browser — no sign-up, no server-side data storage.</em></p>
+      <p class="lede">Ich bin Junping Koch, und das hier ist meine kleine Ecke im Internet für Web-Entwicklung, interkulturelle Projekte und nützliche Alltags-Tools. Alle Werkzeuge auf dieser Seite sind kostenlos, laufen komplett im Browser und verlangen weder eine Anmeldung noch das Speichern persönlicher Daten auf einem Server.</p>
+      <p class="lede">Die Idee zu den meisten Projekten hier entsteht aus ganz konkreten Alltagssituationen — wie man ein internationales Meeting über mehrere Zeitzonen hinweg plant, wie man eine Klasse fair in Gruppen aufteilt, oder wie sich zwei völlig unterschiedliche astrologische Traditionen, die chinesische und die westliche, eigentlich zueinander verhalten. Aus solchen Fragen werden kleine, fokussierte Tools, die genau ein Problem lösen — und das möglichst einfach.</p>
+      <p class="lede en"><em>I'm Junping Koch, and this is my small corner of the internet for web development, intercultural projects, and useful everyday tools. Every tool on this page is free, runs entirely in your browser, and never asks you to sign up or stores your personal data on a server.</em></p>
+      <p class="lede en"><em>Most of the ideas here start from a very concrete everyday situation — how do you schedule an international meeting across several time zones, how do you split a class into fair groups, or how do two completely different astrological traditions, Chinese and Western, actually relate to one another. Questions like these turn into small, focused tools that solve exactly one problem, as simply as possible.</em></p>
     </header>
 
     <main class="tools">
-      <a class="tool-card" href="/zodiac-stars/">
+
+      <section class="tool-section">
         <h2>🔮✨ Zodiac &amp; Stars</h2>
-        <p>Gib dein Geburtsdatum ein und entdecke dein chinesisches Tierkreiszeichen und dein westliches Sternzeichen — mit Charakterbeschreibung und einem verspielten Jahres- und Monatsausblick. Zweisprachig auf Deutsch und Englisch, mit einem interaktiven Tierkreisrad.</p>
-        <p class="en">Enter your date of birth to discover your Chinese zodiac animal and Western star sign — with personality traits and a playful yearly and monthly outlook. Bilingual in German and English, with an interactive zodiac wheel.</p>
-      </a>
+        <div class="article">
+          <figure class="tool-figure">
+            <img src="images/history-zodiac-statues.jpg" alt="Traditional stone statues of the Chinese zodiac animals" loading="lazy" width="800" height="533">
+            <figcaption>Alte Steinfiguren der Tierkreiszeichen · Traditional zodiac statues</figcaption>
+          </figure>
+          <p>Bevor die zwölf Tierkreiszeichen zum verspielten Küchenposter wurden, waren sie ein astronomisches Zeitmesssystem: Die sogenannten Shengxiao (生肖) reichen bis in die Zeit der Streitenden Reiche zurück und waren ursprünglich eng mit den „Irdischen Zweigen" verknüpft, einem Kalendersystem zur Zählung von Jahren, Monaten und sogar Doppelstunden. Bis heute spricht man deshalb vom „Jahr des Drachen", statt einfach eine Jahreszahl zu nennen.</p>
+          <p>Die bekannteste Erklärung für die Reihenfolge der zwölf Tiere ist die Legende vom Großen Wettrennen: Der Jadekaiser rief alle Tiere zu einem Rennen über einen reißenden Fluss — die listige Ratte ritt heimlich auf dem Rücken des Büffels mit und sprang im letzten Moment ans Ufer, weshalb sie bis heute an erster Stelle des Tierkreises steht.</p>
+          <p class="en"><em>Long before the twelve zodiac animals became a playful kitchen poster, they were an astronomical timekeeping system. The so-called Shengxiao (生肖) date back to the Warring States period and were originally tied to the "Earthly Branches," a calendar system used to count years, months, and even two-hour blocks of the day — which is why people still say "the Year of the Dragon" instead of simply naming a year.</em></p>
+          <p class="en"><em>The most famous explanation for the animals' order is the legend of the Great Race: the Jade Emperor summoned every animal to race across a raging river, and the cunning Rat secretly rode across on the Ox's back, leaping ashore at the last moment to claim first place — which is why it still leads the zodiac today.</em></p>
+        </div>
+        <a class="cta-btn" href="/zodiac-stars/">Trag dein Geburtsdatum ein → Zum Tool / Open the tool</a>
+      </section>
 
-      <a class="tool-card" href="/random-grouping-website/">
+      <section class="tool-section">
         <h2>🎲 Random Group Generator</h2>
-        <p>Füge eine Namensliste ein und teile sie mit einem Klick in faire, zufällige Gruppen auf — nach Anzahl der Gruppen oder nach Gruppengröße. Ideal für Unterricht, Teambuilding, Buchclubs und mehr.</p>
-        <p class="en">Paste a list of names and split it into fair, random groups in one click — by number of groups or by group size. Perfect for classrooms, team building, book clubs, and more.</p>
-      </a>
+        <div class="article">
+          <p>Der Zufallsgruppen-Generator ist aus einem sehr praktischen Bedürfnis entstanden: In der Schule, bei Workshops oder beim Teambuilding steht man ständig vor derselben Aufgabe — eine Namensliste schnell und wirklich fair in Gruppen aufteilen, ohne dass am Ende immer dieselben Leute zusammen landen. Das Tool nimmt eine beliebige Namensliste (auch direkt aus Excel oder einem Chat kopiert), entfernt auf Wunsch Duplikate und mischt sie in Sekunden entweder nach gewünschter Gruppenanzahl oder nach gewünschter Gruppengröße — ganz ohne Zettel, Hut oder Excel-Formel.</p>
+          <p class="en"><em>The Random Group Generator grew out of a very practical need: in classrooms, workshops, or team-building sessions, you're constantly facing the same task — splitting a list of names into genuinely fair groups quickly, without the same people always ending up together. The tool takes any list of names (even pasted straight from Excel or a chat), optionally removes duplicates, and shuffles them in seconds either by the number of groups you want or by group size — no paper slips, no hat, no spreadsheet formulas required.</em></p>
+        </div>
+        <a class="cta-btn" href="/random-grouping-website/">Liste einfügen und lostrommeln → Zum Tool / Open the tool</a>
+      </section>
 
-      <a class="tool-card" href="/timezone-planner/">
+      <section class="tool-section">
         <h2>🕐 World Meeting Time Planner</h2>
-        <p>Ziehe die Zeitleiste und vergleiche auf einen Blick die Ortszeit in Peking, London, Zürich, New York und mehr — mit farbiger Markierung von Geschäftszeiten. Ideal zum Planen internationaler Meetings.</p>
-        <p class="en">Drag the timeline to instantly compare local time across Beijing, London, Zurich, New York and more — with color-coded business hours. Perfect for scheduling international meetings.</p>
-      </a>
+        <div class="article">
+          <figure class="tool-figure">
+            <img src="images/how-hourglasses.jpg" alt="Two minimalist hourglasses on a marble table" loading="lazy" width="800" height="533">
+            <figcaption>Zeit sichtbar machen · Making time visible</figcaption>
+          </figure>
+          <p>Wer regelmäßig mit Kolleg:innen oder Kund:innen in mehreren Zeitzonen zu tun hat, kennt das Problem: Man rechnet im Kopf hin und her, vergisst die Sommerzeit-Verschiebung und schickt am Ende doch eine Einladung um drei Uhr morgens Ortszeit. Der World Meeting Time Planner löst das visuell — ein Zeitstrahl, den man einfach mit der Maus verschiebt, während sich die Ortszeit in Peking, London, Zürich, New York (oder jeder anderen hinzugefügten Stadt) live mitbewegt, inklusive korrekt berechneter Sommerzeit und farblich markierter Geschäftszeiten.</p>
+          <p class="en"><em>Anyone who regularly deals with colleagues or clients across multiple time zones knows the problem: you do the math in your head, forget about the daylight-saving shift, and end up sending a meeting invite for 3 a.m. local time anyway. The World Meeting Time Planner solves this visually — a timeline you simply drag with your mouse, while local time in Beijing, London, Zurich, New York (or any city you add) moves along live, with daylight saving correctly applied and business hours color-coded.</em></p>
+        </div>
+        <a class="cta-btn" href="/timezone-planner/">Zeitstrahl ausprobieren → Zum Tool / Open the tool</a>
+      </section>
+
     </main>
 
     <footer>© 2026 Junping Koch</footer>
