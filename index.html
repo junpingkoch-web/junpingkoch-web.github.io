@@ -1,13 +1,62 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
-    <meta charset="UTF-8">
-    <title>Junping Koch Web</title>
-    <!-- 专门给 Google 机器人看的验证代码 -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4830421367394194" crossorigin="anonymous"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Junping Koch — Kostenlose Web-Tools</title>
+  <meta name="description" content="Kostenlose, werbefreie Browser-Tools von Junping Koch: ein zweisprachiger Tierkreiszeichen-Rechner und ein Zufallsgruppen-Generator. Keine Anmeldung, keine Datenspeicherung.">
+  <style>
+    :root{
+      --bg:#F5F3EE; --surface:#FFFFFF; --border:#E1DCCF; --ink:#252220; --ink-soft:#6B665D;
+      --accent:#5B4636; --accent-strong:#3D2F24;
+      --font-display: ui-serif, Georgia, "Iowan Old Style", "Noto Serif SC", "Songti SC", serif;
+      --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+    }
+    @media (prefers-color-scheme: dark){
+      :root{ --bg:#1B1815; --surface:#242019; --border:#3A342B; --ink:#EDE8DF; --ink-soft:#A9A296; --accent:#C7A98A; --accent-strong:#E3C9A8; }
+    }
+    *{ box-sizing:border-box; }
+    body{ margin:0; background:var(--bg); color:var(--ink); font-family:var(--font-body); line-height:1.65; }
+    .wrap{ max-width:720px; margin:0 auto; padding:56px 20px 64px; }
+    header{ text-align:center; margin-bottom:40px; }
+    h1{ font-family:var(--font-display); font-size:clamp(26px,4vw,36px); margin:0 0 12px; color:var(--accent-strong); }
+    p.lede{ color:var(--ink-soft); font-size:16px; max-width:52ch; margin:0 auto; }
+    .tools{ display:grid; gap:20px; }
+    .tool-card{
+      background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:22px 24px;
+      text-decoration:none; color:inherit; display:block; transition:transform .12s ease, box-shadow .12s ease;
+      box-shadow:0 1px 2px rgba(0,0,0,.04);
+    }
+    .tool-card:hover{ transform:translateY(-2px); box-shadow:0 8px 20px -8px rgba(0,0,0,.15); }
+    .tool-card h2{ font-family:var(--font-display); font-size:20px; margin:0 0 8px; color:var(--ink); }
+    .tool-card p{ margin:0; color:var(--ink-soft); font-size:14.5px; }
+    .tool-card .en{ margin-top:6px; font-style:italic; }
+    footer{ text-align:center; margin-top:48px; font-size:12.5px; color:var(--ink-soft); }
+  </style>
 </head>
 <body>
-    <h1>欢迎来到我的主页！</h1>
-    <p>我的工具：<a href="/random-grouping-website/">随机分组生成器 (Random Group Generator)</a></p>
+  <div class="wrap">
+    <header>
+      <h1>Junping Koch</h1>
+      <p class="lede">Ich baue kleine, kostenlose Web-Tools, die komplett im Browser laufen — ohne Anmeldung und ohne Datenspeicherung auf einem Server.</p>
+      <p class="lede en"><em>I build small, free web tools that run entirely in your browser — no sign-up, no server-side data storage.</em></p>
+    </header>
+
+    <main class="tools">
+      <a class="tool-card" href="/zodiac-stars/">
+        <h2>🔮✨ Zodiac &amp; Stars</h2>
+        <p>Gib dein Geburtsdatum ein und entdecke dein chinesisches Tierkreiszeichen und dein westliches Sternzeichen — mit Charakterbeschreibung und einem verspielten Jahres- und Monatsausblick. Zweisprachig auf Deutsch und Englisch, mit einem interaktiven Tierkreisrad.</p>
+        <p class="en">Enter your date of birth to discover your Chinese zodiac animal and Western star sign — with personality traits and a playful yearly and monthly outlook. Bilingual in German and English, with an interactive zodiac wheel.</p>
+      </a>
+
+      <a class="tool-card" href="/random-grouping-website/">
+        <h2>🎲 Random Group Generator</h2>
+        <p>Füge eine Namensliste ein und teile sie mit einem Klick in faire, zufällige Gruppen auf — nach Anzahl der Gruppen oder nach Gruppengröße. Ideal für Unterricht, Teambuilding, Buchclubs und mehr.</p>
+        <p class="en">Paste a list of names and split it into fair, random groups in one click — by number of groups or by group size. Perfect for classrooms, team building, book clubs, and more.</p>
+      </a>
+    </main>
+
+    <footer>© 2026 Junping Koch</footer>
+  </div>
 </body>
 </html>
