@@ -9,295 +9,445 @@
 
   <style>
     :root{
-      --bg:#F5F3EE; --surface:#FFFFFF; --border:#E1DCCF; --ink:#252220; --ink-soft:#6B665D;
-      --accent:#5B4636; --accent-strong:#3D2F24;
+      --bg:#E9ECF1; --surface:#F5F7FA; --border:#D5DBE3; --ink:#1F2733; --ink-soft:#5C6472;
+      --accent:#2B3A55; --accent-strong:#16202F;
       --font-display: ui-serif, Georgia, "Iowan Old Style", "Noto Serif SC", "Songti SC", serif;
       --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
     }
     @media (prefers-color-scheme: dark){
-      :root{ --bg:#1B1815; --surface:#242019; --border:#3A342B; --ink:#EDE8DF; --ink-soft:#A9A296; --accent:#C7A98A; --accent-strong:#E3C9A8; }
+      :root{ --bg:#141821; --surface:#1C222E; --border:#2E3648; --ink:#E7EAF0; --ink-soft:#98A2B3; --accent:#7C93B8; --accent-strong:#AEC2E0; }
     }
     *{ box-sizing:border-box; }
     body{ margin:0; background:var(--bg); color:var(--ink); font-family:var(--font-body); line-height:1.65; }
-    .wrap{ max-width:720px; margin:0 auto; padding:56px 20px 64px; }
-    header{ text-align:center; margin-bottom:40px; }
-    h1{ font-family:var(--font-display); font-size:clamp(26px,4vw,36px); margin:0 0 12px; color:var(--accent-strong); }
-    p.lede{ color:var(--ink-soft); font-size:16px; max-width:56ch; margin:0 auto 12px; }
-    p.lede:last-child{ margin-bottom:0; }
-    p.lede.en{ font-style:italic; }
+    .wrap{ max-width:1080px; margin:0 auto; padding:56px 20px 64px; }
 
-    .tools{ display:grid; gap:44px; margin-top:48px; }
-    .tool-section{
-      background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:26px 26px 24px;
-      box-shadow:0 1px 2px rgba(0,0,0,.04);
+    /* ---- Bento card shell, shared by hero + tool cards ---- */
+    .bento-card{
+      background:var(--surface); border:1px solid var(--border); border-radius:14px;
+      box-shadow:0 1px 2px rgba(0,0,0,.04); overflow:hidden;
+      display:flex; flex-direction:column;
     }
-    .tool-section h2{ font-family:var(--font-display); font-size:22px; margin:0 0 14px; color:var(--ink); }
-    .tool-section .article p{ margin:0 0 12px; font-size:15px; color:var(--ink); max-width:66ch; }
-    .tool-section .article p.en{ font-style:italic; color:var(--ink-soft); }
-    .tool-section .article::after{ content:""; display:table; clear:both; }
+    .bento-body{ padding:24px 24px 22px; display:flex; flex-direction:column; gap:12px; flex:1; }
 
-    .tool-figure{ float:right; width:220px; margin:2px 0 14px 20px; }
-    .tool-figure img{ width:100%; height:auto; display:block; border-radius:10px; box-shadow:0 6px 16px -6px rgba(0,0,0,.25); }
-    .tool-figure figcaption{ font-size:11.5px; color:var(--ink-soft); font-style:italic; margin-top:6px; text-align:center; }
-    @media (max-width:560px){ .tool-figure{ float:none; width:100%; max-width:280px; margin:0 auto 16px; } }
+    /* ---- Hero / intro card ---- */
+    .bento-hero{ max-width:720px; margin:0 auto 48px; }
+    .bento-hero .bento-body{ padding:44px 32px 36px; text-align:center; }
+    h1{ font-family:var(--font-display); font-size:clamp(26px,4vw,36px); margin:0 0 4px; color:var(--accent-strong); }
+    p.lede{ color:var(--ink-soft); font-size:16px; max-width:56ch; margin:0 auto; }
+    p.lede.en{ font-style:italic; }
+    .hero-teaser{ display:flex; flex-direction:column; gap:10px; }
+    .hero-more{ display:flex; flex-direction:column; gap:10px; margin-top:10px; }
+
+    .connect{ margin-top:8px; font-weight:700; }
+    .connect a{ color:var(--accent-strong); text-decoration:none; margin-right:15px; display:inline-flex; align-items:center; gap:6px; vertical-align:middle; }
+    .connect a:last-child{ margin-right:0; }
+    .connect a:hover{ text-decoration:underline; }
+    .connect svg{ flex:0 0 auto; }
+
+    /* ---- "Learn more" collapsible, native <details>, no JS ---- */
+    details.bento-details{ margin-top:2px; text-align:left; }
+    details.bento-details > summary{
+      cursor:pointer; list-style:none; font-size:13px; font-weight:700;
+      color:var(--accent-strong); display:inline-flex; align-items:center; gap:5px;
+      -webkit-tap-highlight-color:transparent;
+    }
+    details.bento-details > summary::-webkit-details-marker{ display:none; }
+    details.bento-details > summary::before{ content:"+"; font-size:15px; line-height:1; }
+    details.bento-details[open] > summary::before{ content:"–"; }
+    details.bento-details[open] > summary{ margin-bottom:10px; }
+    .bento-hero details.bento-details{ text-align:center; }
+    .bento-hero details.bento-details > summary{ justify-content:center; }
+
+    /* ---- Category sections ---- */
+    .bento-category{ margin-bottom:44px; }
+    .bento-category:last-child{ margin-bottom:0; }
+    .category-heading{
+      font-family:var(--font-display); font-size:15px; font-weight:700; text-transform:uppercase;
+      letter-spacing:.05em; color:var(--ink-soft); margin:0 0 16px; padding-bottom:8px;
+      border-bottom:1px solid var(--border);
+    }
+
+    /* ---- Tool grid ---- */
+    .bento-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(260px,1fr)); gap:20px; align-items:start; }
+
+    .bento-thumb-link{ display:block; aspect-ratio:3/2; overflow:hidden; background:var(--border); }
+    .bento-thumb-link img{ width:100%; height:100%; object-fit:cover; display:block; transition:transform .2s ease; }
+    .bento-thumb-link:hover img{ transform:scale(1.04); }
+    .bento-caption{ font-size:11px; color:var(--ink-soft); font-style:italic; padding:6px 24px 0; margin:0; }
+
+    .bento-title{ font-family:var(--font-display); font-size:18px; line-height:1.3; margin:0; color:var(--ink); }
 
     .cta-btn{
-      display:inline-block; margin-top:6px; text-decoration:none; font-weight:700; font-size:14.5px;
-      color:var(--accent-strong); border:1px solid var(--accent); border-radius:999px; padding:9px 18px;
+      align-self:flex-start; display:inline-block; text-decoration:none; font-weight:700; font-size:13.5px;
+      color:var(--accent-strong); border:1px solid var(--accent); border-radius:999px; padding:8px 16px;
       transition:background .12s ease, color .12s ease;
     }
     .cta-btn:hover{ background:var(--accent); color:#fff; }
 
+    .article p{ margin:0 0 12px; font-size:14.5px; color:var(--ink); max-width:66ch; }
+    .article p:last-child{ margin-bottom:0; }
+    .article p.en{ font-style:italic; color:var(--ink-soft); }
+
     .rules{ margin:4px 0 14px; padding-left:20px; }
-    .rules li{ font-size:14.5px; margin-bottom:6px; color:var(--ink); }
+    .rules li{ font-size:14px; margin-bottom:6px; color:var(--ink); }
     .rules.en li{ font-style:italic; color:var(--ink-soft); }
-    .rules-heading{ font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.04em; color:var(--ink-soft); margin:16px 0 6px; }
+    .rules-heading{ font-size:11.5px; font-weight:700; text-transform:uppercase; letter-spacing:.04em; color:var(--ink-soft); margin:16px 0 6px; }
+    .rules-heading:first-child{ margin-top:0; }
 
     footer{ text-align:center; margin-top:48px; font-size:12.5px; color:var(--ink-soft); }
-
-    .connect{ margin-top:20px; font-weight:700; }
-    .connect a{ color:var(--accent-strong); text-decoration:none; margin-right:15px; }
-    .connect a:last-child{ margin-right:0; }
-    .connect a:hover{ text-decoration:underline; }
   </style>
 </head>
 <body>
   <div class="wrap">
-    <header>
-      <h1>Junping Koch</h1>
-      <p class="lede">Willkommen! Ich bin Junping Koch. Nach mehreren Jahren als Client Advisor im Schweizer Luxusuhren-Einzelhandel (u. a. bei Bucherer und Swatch) verbinde ich mein Gespür für exzellenten Kundenservice heute mit meiner Leidenschaft für Technologie — aktuell fokussiere ich mich auf den Übergang in den Bereich <strong>AI &amp; Tech Sales</strong>.</p>
-      <p class="lede">Das hier ist meine kleine Ecke im Internet für interkulturelle Projekte und nützliche Alltags-Tools. Jedes Projekt entsteht aus einer ganz konkreten Situation — wie man ein internationales Meeting plant oder eine Klasse fair in Gruppen aufteilt. Entwickelt habe ich die Tools mit modernen Web-Technologien und KI-Unterstützung; sie laufen komplett im Browser, sind kostenlos und verlangen weder eine Anmeldung noch das Speichern persönlicher Daten.</p>
-      <p class="lede en"><em>Welcome! I'm Junping Koch. Drawing on several years as a Client Advisor in Swiss luxury watch retail (including Bucherer and Swatch), I now combine my dedication to client success with a deep passion for technology — I'm currently upskilling and transitioning into <strong>AI &amp; Tech Sales</strong>.</em></p>
-      <p class="lede en"><em>This is my small corner of the internet for intercultural projects and practical everyday tools. Most ideas start from a very concrete situation — like scheduling an international meeting or splitting a class into fair groups. Built with modern web technologies and AI-assisted workflows, every tool here runs entirely in your browser, is free, and never asks you to sign up or stores your personal data.</em></p>
-      <p class="lede">你好，我是 Junping。我曾在瑞士高端腕表零售行业担任客户顾问（包括 Bucherer 和 Swatch），如今正致力于向 <strong>AI 与科技销售（Tech Sales）</strong>领域转型，把对高净值客户需求的敏锐洞察与前沿 AI 技术结合起来。这个主页上的所有轻量级工具，都是我借助 AI 工作流独立开发的，用最简单的方式解决跨时区沟通、公平分组等日常痛点——全部在本地浏览器运行，免费使用，不需要注册，也不会保存你的个人数据。</p>
-      <div class="connect">
-        <p>Let's connect: <a href="https://www.linkedin.com/in/junpingkoch1978" target="_blank" rel="noopener">LinkedIn</a> | <a href="mailto:junping.koch78@outlook.com">Email Me</a></p>
+
+    <header class="bento-card bento-hero">
+      <div class="bento-body">
+        <h1>Junping Koch</h1>
+        <div class="hero-teaser">
+          <p class="lede">Willkommen! Ich bin Junping Koch. Nach mehreren Jahren als Client Advisor im Schweizer Luxusuhren-Einzelhandel (u. a. bei Bucherer und Swatch) verbinde ich mein Gespür für exzellenten Kundenservice heute mit meiner Leidenschaft für Technologie — aktuell fokussiere ich mich auf den Übergang in den Bereich <strong>AI &amp; Tech Sales</strong>.</p>
+          <p class="lede en"><em>Welcome! I'm Junping Koch. Drawing on several years as a Client Advisor in Swiss luxury watch retail (including Bucherer and Swatch), I now combine my dedication to client success with a deep passion for technology — I'm currently upskilling and transitioning into <strong>AI &amp; Tech Sales</strong>.</em></p>
+        </div>
+        <details class="bento-details">
+          <summary>Mehr über mich · More about me</summary>
+          <div class="hero-more">
+            <p class="lede">Das hier ist meine kleine Ecke im Internet für interkulturelle Projekte und nützliche Alltags-Tools. Jedes Projekt entsteht aus einer ganz konkreten Situation — wie man ein internationales Meeting plant oder eine Klasse fair in Gruppen aufteilt. Entwickelt habe ich die Tools mit modernen Web-Technologien und KI-Unterstützung; sie laufen komplett im Browser, sind kostenlos und verlangen weder eine Anmeldung noch das Speichern persönlicher Daten.</p>
+            <p class="lede en"><em>This is my small corner of the internet for intercultural projects and practical everyday tools. Most ideas start from a very concrete situation — like scheduling an international meeting or splitting a class into fair groups. Built with modern web technologies and AI-assisted workflows, every tool here runs entirely in your browser, is free, and never asks you to sign up or stores your personal data.</em></p>
+            <p class="lede">你好，我是 Junping。我曾在瑞士高端腕表零售行业担任客户顾问（包括 Bucherer 和 Swatch），如今正致力于向 <strong>AI 与科技销售（Tech Sales）</strong>领域转型，把对高净值客户需求的敏锐洞察与前沿 AI 技术结合起来。这个主页上的所有轻量级工具，都是我借助 AI 工作流独立开发的，用最简单的方式解决跨时区沟通、公平分组等日常痛点——全部在本地浏览器运行，免费使用，不需要注册，也不会保存你的个人数据。</p>
+          </div>
+        </details>
+        <div class="connect">
+          <p>Let's connect:
+            <a href="https://www.linkedin.com/in/junpingkoch1978" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>LinkedIn</a>
+            <a href="mailto:junping.koch78@outlook.com"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"></rect><path d="m22 6-10 7L2 6"></path></svg>Email Me</a>
+          </p>
+        </div>
       </div>
     </header>
 
-    <main class="tools">
+    <main>
 
-      <section class="tool-section">
-        <h2>🔮✨ Zodiac &amp; Stars</h2>
-        <div class="article">
-          <figure class="tool-figure">
-            <img src="images/history-zodiac-statues.jpg" alt="Traditional stone statues of the Chinese zodiac animals" loading="lazy" width="800" height="533">
-            <figcaption>Alte Steinfiguren der Tierkreiszeichen · Traditional zodiac statues</figcaption>
-          </figure>
-          <p>Bevor die zwölf Tierkreiszeichen zum verspielten Küchenposter wurden, waren sie ein astronomisches Zeitmesssystem: Die sogenannten Shengxiao (生肖) reichen bis in die Zeit der Streitenden Reiche zurück und waren ursprünglich eng mit den „Irdischen Zweigen" verknüpft, einem Kalendersystem zur Zählung von Jahren, Monaten und sogar Doppelstunden. Bis heute spricht man deshalb vom „Jahr des Drachen", statt einfach eine Jahreszahl zu nennen.</p>
-          <p>Die bekannteste Erklärung für die Reihenfolge der zwölf Tiere ist die Legende vom Großen Wettrennen: Der Jadekaiser rief alle Tiere zu einem Rennen über einen reißenden Fluss — die listige Ratte ritt heimlich auf dem Rücken des Büffels mit und sprang im letzten Moment ans Ufer, weshalb sie bis heute an erster Stelle des Tierkreises steht.</p>
-          <p class="en"><em>Long before the twelve zodiac animals became a playful kitchen poster, they were an astronomical timekeeping system. The so-called Shengxiao (生肖) date back to the Warring States period and were originally tied to the "Earthly Branches," a calendar system used to count years, months, and even two-hour blocks of the day — which is why people still say "the Year of the Dragon" instead of simply naming a year.</em></p>
-          <p class="en"><em>The most famous explanation for the animals' order is the legend of the Great Race: the Jade Emperor summoned every animal to race across a raging river, and the cunning Rat secretly rode across on the Ox's back, leaping ashore at the last moment to claim first place — which is why it still leads the zodiac today.</em></p>
+      <section class="bento-category">
+        <h2 class="category-heading">✨ Empfohlene Mini-Tools · Featured Mini Tools · 精选小工具</h2>
+        <div class="bento-grid">
+
+          <article class="bento-card">
+            <a class="bento-thumb-link" href="/ai-resume-builder/">
+              <img src="images/resume-review-closeup.jpg" alt="Close-up of someone reviewing a printed resume" loading="lazy" width="1200" height="800">
+            </a>
+            <p class="bento-caption">Vom Blatt Papier zur dreisprachigen Version · From paper to a trilingual version</p>
+            <div class="bento-body">
+              <h3 class="bento-title">📄✨ KI-Lebenslauf-Generator · AI Resume Builder</h3>
+              <a class="cta-btn" href="/ai-resume-builder/">Lebenslauf erstellen → Build your resume</a>
+              <details class="bento-details">
+                <summary>Mehr erfahren · Learn more</summary>
+                <div class="article">
+                  <p>Einen Lebenslauf für eine internationale Bewerbung zu schreiben heißt meist: dieselben Angaben drei Mal in drei Sprachen zu formulieren. Der KI-Lebenslauf-Generator löst das mit einer vorlagenbasierten Logik statt einer KI-API: Persönliche Daten, Berufserfahrung, Ausbildung, Kenntnisse und Sprachen einmal eingeben — Berufsbezeichnung, Abschluss, gängige Verben und Sprachniveaus lassen sich aus Auswahllisten wählen und füllen automatisch die chinesische, englische und deutsche Formulierung. Für freie Texte wie das Profil gibt es einen „Kopieren"-Button pro Sprachfeld. Fünf Layouts (Klassisch, Modern, Minimalistisch, Seitenleiste, Banner — angelehnt an gängige Canva- und Word-Vorlagen) lassen sich jederzeit wechseln, ohne den Inhalt zu verlieren.</p>
+                  <p class="en"><em>Writing a resume for an international application usually means phrasing the same details three times in three languages. The AI Resume Builder solves this with template logic instead of an AI API: enter your personal info, work experience, education, skills, and languages once — job title, degree, common action verbs, and language levels can be picked from dropdowns that instantly fill in the Chinese, English, and German wording. Free-text fields like the profile summary get a "copy" button per language box. Five layouts (Classic, Modern, Minimal, Sidebar, Banner — inspired by common Canva and Word templates) can be swapped anytime without losing your content.</em></p>
+                  <p class="rules-heading">So benutzt du das Tool</p>
+                  <ul class="rules">
+                    <li>Persönliche Daten, Berufserfahrung, Ausbildung, Kenntnisse und Sprachen einmal ausfüllen</li>
+                    <li>Auswahllisten für Berufsbezeichnung, Abschluss, Verben und Sprachen füllen automatisch alle drei Sprachen</li>
+                    <li>Freitext (Profil, Tätigkeitsbeschreibungen) pro Sprache eintragen, mit „Kopieren"-Button als Startpunkt</li>
+                    <li>Vorlage wählen: Klassisch, Modern, Minimalistisch, Seitenleiste oder Banner</li>
+                    <li>Als PDF drucken, Text kopieren oder als .txt herunterladen — läuft komplett im Browser, keine KI-API, keine Anmeldung</li>
+                  </ul>
+                  <p class="rules-heading">How to use it</p>
+                  <ul class="rules en">
+                    <li>Fill in personal info, work experience, education, skills, and languages once</li>
+                    <li>Dropdown presets for job title, degree, verbs, and languages instantly fill all three languages</li>
+                    <li>Write free text (summary, job descriptions) per language, with a "copy" button as a starting point</li>
+                    <li>Choose a template: Classic, Modern, Minimal, Sidebar, or Banner</li>
+                    <li>Print to PDF, copy the text, or download as .txt — runs entirely in your browser, no AI API, no sign-up</li>
+                  </ul>
+                </div>
+              </details>
+            </div>
+          </article>
+
+          <article class="bento-card">
+            <a class="bento-thumb-link" href="/zodiac-stars/">
+              <img src="images/history-zodiac-statues.jpg" alt="Traditional stone statues of the Chinese zodiac animals" loading="lazy" width="800" height="533">
+            </a>
+            <p class="bento-caption">Alte Steinfiguren der Tierkreiszeichen · Traditional zodiac statues</p>
+            <div class="bento-body">
+              <h3 class="bento-title">🔮✨ Zodiac &amp; Stars</h3>
+              <a class="cta-btn" href="/zodiac-stars/">Trag dein Geburtsdatum ein → Zum Tool / Open the tool</a>
+              <details class="bento-details">
+                <summary>Mehr erfahren · Learn more</summary>
+                <div class="article">
+                  <p>Bevor die zwölf Tierkreiszeichen zum verspielten Küchenposter wurden, waren sie ein astronomisches Zeitmesssystem: Die sogenannten Shengxiao (生肖) reichen bis in die Zeit der Streitenden Reiche zurück und waren ursprünglich eng mit den „Irdischen Zweigen" verknüpft, einem Kalendersystem zur Zählung von Jahren, Monaten und sogar Doppelstunden. Bis heute spricht man deshalb vom „Jahr des Drachen", statt einfach eine Jahreszahl zu nennen.</p>
+                  <p>Die bekannteste Erklärung für die Reihenfolge der zwölf Tiere ist die Legende vom Großen Wettrennen: Der Jadekaiser rief alle Tiere zu einem Rennen über einen reißenden Fluss — die listige Ratte ritt heimlich auf dem Rücken des Büffels mit und sprang im letzten Moment ans Ufer, weshalb sie bis heute an erster Stelle des Tierkreises steht.</p>
+                  <p class="en"><em>Long before the twelve zodiac animals became a playful kitchen poster, they were an astronomical timekeeping system. The so-called Shengxiao (生肖) date back to the Warring States period and were originally tied to the "Earthly Branches," a calendar system used to count years, months, and even two-hour blocks of the day — which is why people still say "the Year of the Dragon" instead of simply naming a year.</em></p>
+                  <p class="en"><em>The most famous explanation for the animals' order is the legend of the Great Race: the Jade Emperor summoned every animal to race across a raging river, and the cunning Rat secretly rode across on the Ox's back, leaping ashore at the last moment to claim first place — which is why it still leads the zodiac today.</em></p>
+                </div>
+              </details>
+            </div>
+          </article>
+
         </div>
-        <a class="cta-btn" href="/zodiac-stars/">Trag dein Geburtsdatum ein → Zum Tool / Open the tool</a>
       </section>
 
-      <section class="tool-section">
-        <h2>🎲 Random Group Generator</h2>
-        <div class="article">
-          <p>Der Zufallsgruppen-Generator ist aus einem sehr praktischen Bedürfnis entstanden: In der Schule, bei Workshops oder beim Teambuilding steht man ständig vor derselben Aufgabe — eine Namensliste schnell und wirklich fair in Gruppen aufteilen, ohne dass am Ende immer dieselben Leute zusammen landen. Das Tool nimmt eine beliebige Namensliste (auch direkt aus Excel oder einem Chat kopiert), entfernt auf Wunsch Duplikate und mischt sie in Sekunden entweder nach gewünschter Gruppenanzahl oder nach gewünschter Gruppengröße — ganz ohne Zettel, Hut oder Excel-Formel.</p>
-          <p class="en"><em>The Random Group Generator grew out of a very practical need: in classrooms, workshops, or team-building sessions, you're constantly facing the same task — splitting a list of names into genuinely fair groups quickly, without the same people always ending up together. The tool takes any list of names (even pasted straight from Excel or a chat), optionally removes duplicates, and shuffles them in seconds either by the number of groups you want or by group size — no paper slips, no hat, no spreadsheet formulas required.</em></p>
+      <section class="bento-category">
+        <h2 class="category-heading">🧰 Alltags- &amp; Produktivitätstools · Everyday &amp; Productivity Tools · 日常与效率工具</h2>
+        <div class="bento-grid">
+
+          <article class="bento-card">
+            <a class="bento-thumb-link" href="/random-grouping-website/">
+              <img src="images/random-group-dice.jpg" alt="Two red dice close-up on a dark surface" loading="lazy" width="1200" height="800">
+            </a>
+            <p class="bento-caption">Der Zufall entscheidet · Let chance decide</p>
+            <div class="bento-body">
+              <h3 class="bento-title">🎲 Random Group Generator</h3>
+              <a class="cta-btn" href="/random-grouping-website/">Liste einfügen und lostrommeln → Zum Tool / Open the tool</a>
+              <details class="bento-details">
+                <summary>Mehr erfahren · Learn more</summary>
+                <div class="article">
+                  <p>Der Zufallsgruppen-Generator ist aus einem sehr praktischen Bedürfnis entstanden: In der Schule, bei Workshops oder beim Teambuilding steht man ständig vor derselben Aufgabe — eine Namensliste schnell und wirklich fair in Gruppen aufteilen, ohne dass am Ende immer dieselben Leute zusammen landen. Das Tool nimmt eine beliebige Namensliste (auch direkt aus Excel oder einem Chat kopiert), entfernt auf Wunsch Duplikate und mischt sie in Sekunden entweder nach gewünschter Gruppenanzahl oder nach gewünschter Gruppengröße — ganz ohne Zettel, Hut oder Excel-Formel.</p>
+                  <p class="en"><em>The Random Group Generator grew out of a very practical need: in classrooms, workshops, or team-building sessions, you're constantly facing the same task — splitting a list of names into genuinely fair groups quickly, without the same people always ending up together. The tool takes any list of names (even pasted straight from Excel or a chat), optionally removes duplicates, and shuffles them in seconds either by the number of groups you want or by group size — no paper slips, no hat, no spreadsheet formulas required.</em></p>
+                </div>
+              </details>
+            </div>
+          </article>
+
+          <article class="bento-card">
+            <a class="bento-thumb-link" href="/timezone-planner/">
+              <img src="images/how-hourglasses.jpg" alt="Two minimalist hourglasses on a marble table" loading="lazy" width="800" height="533">
+            </a>
+            <p class="bento-caption">Zeit sichtbar machen · Making time visible</p>
+            <div class="bento-body">
+              <h3 class="bento-title">🕐 World Meeting Time Planner</h3>
+              <a class="cta-btn" href="/timezone-planner/">Zeitstrahl ausprobieren → Zum Tool / Open the tool</a>
+              <details class="bento-details">
+                <summary>Mehr erfahren · Learn more</summary>
+                <div class="article">
+                  <p>Wer regelmäßig mit Kolleg:innen oder Kund:innen in mehreren Zeitzonen zu tun hat, kennt das Problem: Man rechnet im Kopf hin und her, vergisst die Sommerzeit-Verschiebung und schickt am Ende doch eine Einladung um drei Uhr morgens Ortszeit. Der World Meeting Time Planner löst das visuell — ein Zeitstrahl, den man einfach mit der Maus verschiebt, während sich die Ortszeit in Peking, London, Zürich, New York (oder jeder anderen hinzugefügten Stadt) live mitbewegt, inklusive korrekt berechneter Sommerzeit und farblich markierter Geschäftszeiten.</p>
+                  <p class="en"><em>Anyone who regularly deals with colleagues or clients across multiple time zones knows the problem: you do the math in your head, forget about the daylight-saving shift, and end up sending a meeting invite for 3 a.m. local time anyway. The World Meeting Time Planner solves this visually — a timeline you simply drag with your mouse, while local time in Beijing, London, Zurich, New York (or any city you add) moves along live, with daylight saving correctly applied and business hours color-coded.</em></p>
+                </div>
+              </details>
+            </div>
+          </article>
+
         </div>
-        <a class="cta-btn" href="/random-grouping-website/">Liste einfügen und lostrommeln → Zum Tool / Open the tool</a>
       </section>
 
-      <section class="tool-section">
-        <h2>🕐 World Meeting Time Planner</h2>
-        <div class="article">
-          <figure class="tool-figure">
-            <img src="images/how-hourglasses.jpg" alt="Two minimalist hourglasses on a marble table" loading="lazy" width="800" height="533">
-            <figcaption>Zeit sichtbar machen · Making time visible</figcaption>
-          </figure>
-          <p>Wer regelmäßig mit Kolleg:innen oder Kund:innen in mehreren Zeitzonen zu tun hat, kennt das Problem: Man rechnet im Kopf hin und her, vergisst die Sommerzeit-Verschiebung und schickt am Ende doch eine Einladung um drei Uhr morgens Ortszeit. Der World Meeting Time Planner löst das visuell — ein Zeitstrahl, den man einfach mit der Maus verschiebt, während sich die Ortszeit in Peking, London, Zürich, New York (oder jeder anderen hinzugefügten Stadt) live mitbewegt, inklusive korrekt berechneter Sommerzeit und farblich markierter Geschäftszeiten.</p>
-          <p class="en"><em>Anyone who regularly deals with colleagues or clients across multiple time zones knows the problem: you do the math in your head, forget about the daylight-saving shift, and end up sending a meeting invite for 3 a.m. local time anyway. The World Meeting Time Planner solves this visually — a timeline you simply drag with your mouse, while local time in Beijing, London, Zurich, New York (or any city you add) moves along live, with daylight saving correctly applied and business hours color-coded.</em></p>
+      <section class="bento-category">
+        <h2 class="category-heading">⌚ Uhren-Tools · Watch Tools · 腕表工具</h2>
+        <div class="bento-grid">
+
+          <article class="bento-card">
+            <a class="bento-thumb-link" href="/watch-price-tracker/">
+              <img src="images/watch-price-wristwatch.jpg" alt="Luxury wristwatch with stainless steel bracelet on a wooden background" loading="lazy" width="1200" height="800">
+            </a>
+            <p class="bento-caption">Referenzpreise auf einen Blick · Reference prices at a glance</p>
+            <div class="bento-body">
+              <h3 class="bento-title">⌚📈 Watch Price Trends</h3>
+              <a class="cta-btn" href="/watch-price-tracker/">Preise vergleichen → Compare prices</a>
+              <details class="bento-details">
+                <summary>Mehr erfahren · Learn more</summary>
+                <div class="article">
+                  <p>Wer den Wiederverkaufswert einer Uhr im Blick behalten will, kennt das Problem: Die Preise für gesuchte Modelle wie die Rolex Submariner oder die Daytona schwanken stark und sind über unzählige Händler-Websites verstreut. Watch Price Trends bündelt die wichtigsten Referenzen von Rolex, Omega, Audemars Piguet, Patek Philippe und mehr auf einer Seite — mit Suche, Filtern nach Marke und Preistrend-Pfeilen auf einen Blick. Verfügbar auf Chinesisch, Englisch und Deutsch.</p>
+                  <p class="en"><em>Anyone trying to keep an eye on watch resale values knows the problem: prices for sought-after references like the Rolex Submariner or Daytona swing widely and are scattered across dozens of dealer websites. Watch Price Trends brings the key reference numbers from Rolex, Omega, Audemars Piguet, Patek Philippe and more onto a single page — with search, brand filters, and at-a-glance price trend arrows. Available in Chinese, English, and German.</em></p>
+                  <p class="rules-heading">So benutzt du das Tool</p>
+                  <ul class="rules">
+                    <li>Oben nach Marke, Modell oder Referenznummer suchen</li>
+                    <li>Links nach Marke (Rolex, Omega, Audemars Piguet, Patek Philippe …) und nach Stil (Sport- oder Kleideruhr) filtern</li>
+                    <li>Jede Zeile zeigt den aktuellen Preis sowie einen Pfeil für die Preisentwicklung (▲/▼)</li>
+                    <li>Sprache oben rechts zwischen 中文 / EN / DE umschalten</li>
+                  </ul>
+                  <p class="rules-heading">How to use it</p>
+                  <ul class="rules en">
+                    <li>Search by brand, model, or reference number at the top</li>
+                    <li>Filter on the left by brand (Rolex, Omega, Audemars Piguet, Patek Philippe …) and by style (sport or dress watch)</li>
+                    <li>Each row shows the current price plus a trend arrow (▲/▼)</li>
+                    <li>Switch language between 中文 / EN / DE in the top right</li>
+                  </ul>
+                </div>
+              </details>
+            </div>
+          </article>
+
+          <article class="bento-card">
+            <a class="bento-thumb-link" href="/Europe-Travel-Watch-Duty-Free-Calculator/">
+              <img src="images/watch-duty-free-zermatt.jpg" alt="Luxury watches on display in a store in Zermatt, Switzerland" loading="lazy" width="1200" height="800">
+            </a>
+            <p class="bento-caption">Uhrenkauf auf Reisen in Europa · Buying a watch while traveling in Europe</p>
+            <div class="bento-body">
+              <h3 class="bento-title">🧳💶 Europa-Reise Uhren-Steuerfrei-Rechner</h3>
+              <a class="cta-btn" href="/Europe-Travel-Watch-Duty-Free-Calculator/">Erstattung berechnen → Calculate the refund</a>
+              <details class="bento-details">
+                <summary>Mehr erfahren · Learn more</summary>
+                <div class="article">
+                  <p>Eine Uhr im Ausland kaufen und die Mehrwertsteuer zurückholen klingt einfach, ist aber in der Praxis unübersichtlich: Jedes Land hat einen eigenen MwSt.-Satz, einen eigenen Mindestbetrag für die Erstattung und eine eigene, oft nur ungefähr bekannte Bar-Erstattungsquote der Rückerstattungsanbieter. Der Europa-Reise Uhren-Steuerfrei-Rechner nimmt Frankreich, Italien, Deutschland, die Schweiz und Spanien vorkonfiguriert auf, rechnet den Nettopreis nach Erstattung aus und vergleicht ihn auf Wunsch direkt mit dem Ladenpreis im Heimatland — inklusive manuell eingegebenem Wechselkurs, damit klar wird, ob sich der Kauf unterwegs wirklich lohnt.</p>
+                  <p class="en"><em>Buying a watch abroad and claiming back the VAT sounds simple, but in practice it's confusing: every country has its own VAT rate, its own minimum purchase amount for a refund, and its own cash refund rate charged by the refund operators, which is often only roughly known in advance. The Europe Travel Watch Duty-Free Calculator comes preloaded with France, Italy, Germany, Switzerland, and Spain, works out the net price after the refund, and can compare it directly against the home-country retail price — using a manually entered exchange rate — so it's clear whether buying on the trip is actually worth it.</em></p>
+                  <p class="rules-heading">So benutzt du das Tool</p>
+                  <ul class="rules">
+                    <li>Kaufland auswählen — MwSt.-Satz und übliche Bar-Erstattungsquote werden automatisch vorausgefüllt (oder selbst eintragen)</li>
+                    <li>Ausgezeichneten Preis der Uhr eingeben</li>
+                    <li>Das Ergebnis zeigt Endpreis nach Erstattung, enthaltene MwSt. und geschätzte Bar-Erstattung</li>
+                    <li>Optional: Heimatpreis und Wechselkurs eintragen, um die tatsächliche Ersparnis im Vergleich zum Kauf zuhause zu sehen</li>
+                    <li>Nur zur Reisebudget-Orientierung, keine Steuer- oder Rechtsberatung</li>
+                  </ul>
+                  <p class="rules-heading">How to use it</p>
+                  <ul class="rules en">
+                    <li>Choose the country of purchase — VAT rate and typical cash refund rate fill in automatically (or enter your own)</li>
+                    <li>Enter the watch's ticket price</li>
+                    <li>The result shows the final price after refund, the VAT included, and the estimated cash refund</li>
+                    <li>Optional: enter the home-country price and exchange rate to see the real savings versus buying at home</li>
+                    <li>For trip-budgeting guidance only — not tax or legal advice</li>
+                  </ul>
+                </div>
+              </details>
+            </div>
+          </article>
+
+          <article class="bento-card">
+            <a class="bento-thumb-link" href="/Secondhand-Watch-Valuator/">
+              <img src="images/watch-valuator-selecting.jpg" alt="A hand selecting a watch from an elegant display case" loading="lazy" width="1200" height="800">
+            </a>
+            <p class="bento-caption">Vom Preisvergleich zur eigenen Schätzung · From price check to your own estimate</p>
+            <div class="bento-body">
+              <h3 class="bento-title">⌚💰 Gebrauchtuhren-Wertschätzer</h3>
+              <a class="cta-btn" href="/Secondhand-Watch-Valuator/">Uhr schätzen lassen → Estimate a watch</a>
+              <details class="bento-details">
+                <summary>Mehr erfahren · Learn more</summary>
+                <div class="article">
+                  <p>Die Frage, die auf den Preisvergleich fast immer folgt, ist: „Was ist meine eigene Uhr eigentlich noch wert?" Der Gebrauchtuhren-Wertschätzer beantwortet das mit einem heuristischen Modell, das Marke, Modell, Material, Besitzdauer, Zustand sowie Box &amp; Papiere berücksichtigt und daraus eine grobe Werterhaltungs-Einschätzung errechnet — als Startpunkt für ein Verkaufsgespräch, nicht als offizielles Gutachten. Das Tool gibt es auch eingebettet direkt im Uhren-Blog und ist ebenfalls auf Chinesisch, Englisch und Deutsch verfügbar.</p>
+                  <p class="en"><em>The question that almost always follows a price comparison is: "so what is my own watch actually worth now?" The Secondhand Watch Valuator answers that with a heuristic model factoring in brand, model, material, years of ownership, condition, and box &amp; papers to produce a rough value-retention estimate — a starting point for a resale conversation, not a formal appraisal. It's also embedded directly inside the watch blog, also available in Chinese, English, and German.</em></p>
+                  <p class="rules-heading">So benutzt du das Tool</p>
+                  <ul class="rules">
+                    <li>Marke und Modell auswählen — der Basiswert wird automatisch übernommen</li>
+                    <li>Material, Besitzdauer, Zustand sowie Box &amp; Papiere angeben</li>
+                    <li>Gewünschte Währung wählen (USD, EUR, CHF, CNY)</li>
+                    <li>Das Tool zeigt eine geschätzte Werterhaltung in Prozent</li>
+                    <li>Hinweis: heuristische Schätzung, kein offizielles Gutachten</li>
+                  </ul>
+                  <p class="rules-heading">How to use it</p>
+                  <ul class="rules en">
+                    <li>Choose the brand and model — the base value fills in automatically</li>
+                    <li>Specify material, years of ownership, condition, and box &amp; papers</li>
+                    <li>Pick your currency (USD, EUR, CHF, CNY)</li>
+                    <li>The tool shows an estimated value-retention percentage</li>
+                    <li>Note: a heuristic estimate, not a formal appraisal</li>
+                  </ul>
+                </div>
+              </details>
+            </div>
+          </article>
+
         </div>
-        <a class="cta-btn" href="/timezone-planner/">Zeitstrahl ausprobieren → Zum Tool / Open the tool</a>
       </section>
 
-      <section class="tool-section">
-        <h2>📝⌚ 瑞士腕表笔记 · Swiss Watch Notes</h2>
-        <div class="article">
-          <figure class="tool-figure">
-            <img src="images/watch-blog-display-case.jpg" alt="Elegant collection of luxury watches displayed in a case" loading="lazy" width="1200" height="800">
-            <figcaption>Aus dem Berufsalltag im Uhrenhandel · From everyday life in watch retail</figcaption>
-          </figure>
-          <p>Neben den Tools führe ich auch einen redaktionellen Blog aus meinem eigentlichen Berufsalltag: Ich arbeite im Luxusuhren-Einzelhandel in der Schweiz und schreibe „瑞士腕表笔记" (Schweizer Uhren-Notizen) für Käufer:innen von Gebrauchtuhren — mit Artikeln zur Echtheitsprüfung, zum zollfreien Uhrenkauf in Europa und zur Beobachtung des Gebrauchtmarkts, ergänzt um Beiträge zum Alltag in der Schweiz.</p>
-          <p class="en"><em>Alongside the tools, I also run an editorial blog drawing on my actual day job: I work in luxury watch retail in Switzerland, and I write "瑞士腕表笔记" (Swiss Watch Notes) for secondhand-watch buyers — covering authenticity checks, duty-free watch shopping in Europe, and secondhand market observations, plus posts on everyday life in Switzerland.</em></p>
-          <p class="en" style="margin-top:-4px;"><em>Note: the blog itself is written primarily in Chinese.</em></p>
-          <p class="rules-heading">So findest du dich zurecht</p>
-          <ul class="rules">
-            <li>Nach Rubrik stöbern: Handwissen &amp; Echtheitsprüfung, Europa-Kauf &amp; Zollfrei-Guide, Gebrauchtmarkt-Beobachtung, Schweizer Alltag</li>
-            <li>Unter „Kleine Tools" den eingebetteten Gebrauchtuhren-Wertschätzer direkt im Blog ausprobieren</li>
-            <li>Neue Artikel per RSS-Feed abonnieren</li>
-          </ul>
-          <p class="rules-heading">How to navigate</p>
-          <ul class="rules en">
-            <li>Browse by category: watch knowledge &amp; authentication, Europe purchasing &amp; duty-free guide, secondhand market observations, everyday life in Switzerland</li>
-            <li>Try the embedded Secondhand Watch Valuator directly from the "tools" section</li>
-            <li>Subscribe to new posts via the RSS feed</li>
-          </ul>
+      <section class="bento-category">
+        <h2 class="category-heading">🗺️ Reise-Tools · Travel Tools · 旅行工具</h2>
+        <div class="bento-grid">
+
+          <article class="bento-card">
+            <a class="bento-thumb-link" href="/alpine-route-planner/">
+              <img src="images/alpine-lake-mountains.jpg" alt="A quiet alpine lake surrounded by mountains and pine trees" loading="lazy" width="1200" height="800">
+            </a>
+            <p class="bento-caption">Ein Tag in den Schweizer Alpen · A day in the Swiss Alps</p>
+            <div class="bento-body">
+              <h3 class="bento-title">🏔️🚤 Alpen-Routenplaner</h3>
+              <a class="cta-btn" href="/alpine-route-planner/">Route planen → Plan a route</a>
+              <details class="bento-details">
+                <summary>Mehr erfahren · Learn more</summary>
+                <div class="article">
+                  <p>Wer in der Schweiz wandern gehen will, kennt das Problem: Man hat eine grobe Idee — „irgendwas am Brienzersee" — aber am Ende braucht es trotzdem eine Stunde Recherche für Wetterlage, Schiffsfahrplan und die Frage, was man eigentlich mitnehmen soll. Der Alpen-Routenplaner nimmt eine Schweizer Seeregion (oder einen beliebigen anderen Ort) entgegen und stellt daraus automatisch ein komplettes Tagesprogramm zusammen: Live-Wetterdaten, aktuelle Schiffsfahrpläne der Seen, geschätzte Wanderzeiten, eine wetterabhängige Ausrüstungsliste und Restaurant-Empfehlungen entlang der Route — inklusive einer herunterladbaren Poster-Zusammenfassung für unterwegs.</p>
+                  <p class="en"><em>Anyone planning a hike in Switzerland knows the problem: you have a rough idea — "something around Lake Brienz" — but still end up spending an hour checking the weather, the boat schedule, and what to actually pack. The Alpine Route Planner takes a Swiss lake region (or any other location) and automatically builds a full day itinerary from it: live weather data, current lake ferry schedules, estimated hiking times, a weather-based gear checklist, and restaurant recommendations along the route — including a downloadable poster summary for the trail.</em></p>
+                  <p class="rules-heading">So benutzt du das Tool</p>
+                  <ul class="rules">
+                    <li>Seeregion auswählen (z. B. Brienzersee, Thunersee, Vierwaldstättersee) oder einen eigenen Ort eingeben</li>
+                    <li>Das Tool ruft Live-Wetter und aktuelle Schiffsfahrpläne ab und baut daraus ein Tagesprogramm</li>
+                    <li>Die Ausrüstungsliste passt sich automatisch an die aktuelle Wetterlage an</li>
+                    <li>Route inklusive Restaurant-Tipps als Poster herunterladen</li>
+                    <li>Sprache oben zwischen 中文 / EN / DE umschalten</li>
+                  </ul>
+                  <p class="rules-heading">How to use it</p>
+                  <ul class="rules en">
+                    <li>Choose a lake region (e.g. Lake Brienz, Lake Thun, Lake Lucerne) or enter your own location</li>
+                    <li>The tool pulls live weather and current ferry schedules to build a day itinerary</li>
+                    <li>The gear checklist adjusts automatically to current weather conditions</li>
+                    <li>Download the route, including restaurant tips, as a poster</li>
+                    <li>Switch language between 中文 / EN / DE at the top</li>
+                  </ul>
+                </div>
+              </details>
+            </div>
+          </article>
+
+          <article class="bento-card">
+            <a class="bento-thumb-link" href="/swiss-city-guide/">
+              <img src="images/zurich-limmat-oldtown.jpg" alt="Zurich old town along the Limmat river with St. Peter church tower" loading="lazy" width="1200" height="800">
+            </a>
+            <p class="bento-caption">Altstadt an der Limmat · Old town on the Limmat</p>
+            <div class="bento-body">
+              <h3 class="bento-title">🏙️🗺️ Schweizer Stadtreiseführer</h3>
+              <a class="cta-btn" href="/swiss-city-guide/">Reiseführer erstellen → Build your guide</a>
+              <details class="bento-details">
+                <summary>Mehr erfahren · Learn more</summary>
+                <div class="article">
+                  <p>Reiseführer-Apps behandeln meist jede Stadt gleich — aber ein Wochenende mit Kleinkind in Luzern sieht völlig anders aus als ein Solo-Trip nach Zürich für ein verlängertes Wochenende. Der Schweizer Stadtreiseführer deckt Zürich, Genf, Basel, Bern, Luzern und Lugano ab und passt Sehenswürdigkeiten, Essenstipps, Verkehrsmittel und sogar Kleidungsempfehlungen an den gewählten Reisestil und die Begleitung an — mit aktueller Wetterlage und einer interaktiven Karte, die Sehenswürdigkeiten, Restaurants und Flughäfen direkt anzeigt.</p>
+                  <p class="en"><em>Most travel-guide apps treat every city the same — but a weekend in Lucerne with a toddler looks nothing like a solo long weekend in Zurich. The Swiss City Guide covers Zurich, Geneva, Basel, Bern, Lucerne, and Lugano, and tailors attractions, food tips, transit options, and even outfit recommendations to the travel style and companions you choose — with current weather and an interactive map showing attractions, restaurants, and airports directly.</em></p>
+                  <p class="rules-heading">So benutzt du das Tool</p>
+                  <ul class="rules">
+                    <li>Stadt auswählen (Zürich, Genf, Basel, Bern, Luzern oder Lugano)</li>
+                    <li>Reisestil (z. B. Kultur, Natur, Shopping) und Begleitung (allein, Paar, Familie …) angeben</li>
+                    <li>„Reiseführer generieren" klicken für massgeschneiderte Sehenswürdigkeiten-, Essens- und Verkehrstipps</li>
+                    <li>Interaktive Karte mit Sehenswürdigkeiten, Restaurants und Flughäfen erkunden</li>
+                    <li>Sprache oben zwischen 中文 / EN / DE umschalten</li>
+                  </ul>
+                  <p class="rules-heading">How to use it</p>
+                  <ul class="rules en">
+                    <li>Choose a city (Zurich, Geneva, Basel, Bern, Lucerne, or Lugano)</li>
+                    <li>Specify your travel style (e.g. culture, nature, shopping) and travel companions (solo, couple, family …)</li>
+                    <li>Click "Generate guide" for tailored attractions, food, and transit recommendations</li>
+                    <li>Explore the interactive map showing attractions, restaurants, and airports</li>
+                    <li>Switch language between 中文 / EN / DE at the top</li>
+                  </ul>
+                </div>
+              </details>
+            </div>
+          </article>
+
         </div>
-        <a class="cta-btn" href="/watch-guide-blog/">Zum Blog lesen → Read the blog</a>
       </section>
 
-      <section class="tool-section">
-        <h2>⌚📈 Watch Price Trends</h2>
-        <div class="article">
-          <figure class="tool-figure">
-            <img src="images/watch-price-wristwatch.jpg" alt="Luxury wristwatch with stainless steel bracelet on a wooden background" loading="lazy" width="1200" height="800">
-            <figcaption>Referenzpreise auf einen Blick · Reference prices at a glance</figcaption>
-          </figure>
-          <p>Wer den Wiederverkaufswert einer Uhr im Blick behalten will, kennt das Problem: Die Preise für gesuchte Modelle wie die Rolex Submariner oder die Daytona schwanken stark und sind über unzählige Händler-Websites verstreut. Watch Price Trends bündelt die wichtigsten Referenzen von Rolex, Omega, Audemars Piguet, Patek Philippe und mehr auf einer Seite — mit Suche, Filtern nach Marke und Preistrend-Pfeilen auf einen Blick. Verfügbar auf Chinesisch, Englisch und Deutsch.</p>
-          <p class="en"><em>Anyone trying to keep an eye on watch resale values knows the problem: prices for sought-after references like the Rolex Submariner or Daytona swing widely and are scattered across dozens of dealer websites. Watch Price Trends brings the key reference numbers from Rolex, Omega, Audemars Piguet, Patek Philippe and more onto a single page — with search, brand filters, and at-a-glance price trend arrows. Available in Chinese, English, and German.</em></p>
-          <p class="rules-heading">So benutzt du das Tool</p>
-          <ul class="rules">
-            <li>Oben nach Marke, Modell oder Referenznummer suchen</li>
-            <li>Links nach Marke (Rolex, Omega, Audemars Piguet, Patek Philippe …) und nach Stil (Sport- oder Kleideruhr) filtern</li>
-            <li>Jede Zeile zeigt den aktuellen Preis sowie einen Pfeil für die Preisentwicklung (▲/▼)</li>
-            <li>Sprache oben rechts zwischen 中文 / EN / DE umschalten</li>
-          </ul>
-          <p class="rules-heading">How to use it</p>
-          <ul class="rules en">
-            <li>Search by brand, model, or reference number at the top</li>
-            <li>Filter on the left by brand (Rolex, Omega, Audemars Piguet, Patek Philippe …) and by style (sport or dress watch)</li>
-            <li>Each row shows the current price plus a trend arrow (▲/▼)</li>
-            <li>Switch language between 中文 / EN / DE in the top right</li>
-          </ul>
-        </div>
-        <a class="cta-btn" href="/watch-price-tracker/">Preise vergleichen → Compare prices</a>
-      </section>
+      <section class="bento-category">
+        <h2 class="category-heading">📝 Blog · Blog · 博客</h2>
+        <div class="bento-grid">
 
-      <section class="tool-section">
-        <h2>🧳💶 Europa-Reise Uhren-Steuerfrei-Rechner · Europe Travel Watch Duty-Free Calculator</h2>
-        <div class="article">
-          <figure class="tool-figure">
-            <img src="images/watch-duty-free-zermatt.jpg" alt="Luxury watches on display in a store in Zermatt, Switzerland" loading="lazy" width="1200" height="800">
-            <figcaption>Uhrenkauf auf Reisen in Europa · Buying a watch while traveling in Europe</figcaption>
-          </figure>
-          <p>Eine Uhr im Ausland kaufen und die Mehrwertsteuer zurückholen klingt einfach, ist aber in der Praxis unübersichtlich: Jedes Land hat einen eigenen MwSt.-Satz, einen eigenen Mindestbetrag für die Erstattung und eine eigene, oft nur ungefähr bekannte Bar-Erstattungsquote der Rückerstattungsanbieter. Der Europa-Reise Uhren-Steuerfrei-Rechner nimmt Frankreich, Italien, Deutschland, die Schweiz und Spanien vorkonfiguriert auf, rechnet den Nettopreis nach Erstattung aus und vergleicht ihn auf Wunsch direkt mit dem Ladenpreis im Heimatland — inklusive manuell eingegebenem Wechselkurs, damit klar wird, ob sich der Kauf unterwegs wirklich lohnt.</p>
-          <p class="en"><em>Buying a watch abroad and claiming back the VAT sounds simple, but in practice it's confusing: every country has its own VAT rate, its own minimum purchase amount for a refund, and its own cash refund rate charged by the refund operators, which is often only roughly known in advance. The Europe Travel Watch Duty-Free Calculator comes preloaded with France, Italy, Germany, Switzerland, and Spain, works out the net price after the refund, and can compare it directly against the home-country retail price — using a manually entered exchange rate — so it's clear whether buying on the trip is actually worth it.</em></p>
-          <p class="rules-heading">So benutzt du das Tool</p>
-          <ul class="rules">
-            <li>Kaufland auswählen — MwSt.-Satz und übliche Bar-Erstattungsquote werden automatisch vorausgefüllt (oder selbst eintragen)</li>
-            <li>Ausgezeichneten Preis der Uhr eingeben</li>
-            <li>Das Ergebnis zeigt Endpreis nach Erstattung, enthaltene MwSt. und geschätzte Bar-Erstattung</li>
-            <li>Optional: Heimatpreis und Wechselkurs eintragen, um die tatsächliche Ersparnis im Vergleich zum Kauf zuhause zu sehen</li>
-            <li>Nur zur Reisebudget-Orientierung, keine Steuer- oder Rechtsberatung</li>
-          </ul>
-          <p class="rules-heading">How to use it</p>
-          <ul class="rules en">
-            <li>Choose the country of purchase — VAT rate and typical cash refund rate fill in automatically (or enter your own)</li>
-            <li>Enter the watch's ticket price</li>
-            <li>The result shows the final price after refund, the VAT included, and the estimated cash refund</li>
-            <li>Optional: enter the home-country price and exchange rate to see the real savings versus buying at home</li>
-            <li>For trip-budgeting guidance only — not tax or legal advice</li>
-          </ul>
-        </div>
-        <a class="cta-btn" href="/Europe-Travel-Watch-Duty-Free-Calculator/">Erstattung berechnen → Calculate the refund</a>
-      </section>
+          <article class="bento-card">
+            <a class="bento-thumb-link" href="/watch-guide-blog/">
+              <img src="images/watch-blog-display-case.jpg" alt="Elegant collection of luxury watches displayed in a case" loading="lazy" width="1200" height="800">
+            </a>
+            <p class="bento-caption">Aus dem Berufsalltag im Uhrenhandel · From everyday life in watch retail</p>
+            <div class="bento-body">
+              <h3 class="bento-title">📝⌚ 瑞士腕表笔记 · Swiss Watch Notes</h3>
+              <a class="cta-btn" href="/watch-guide-blog/">Zum Blog lesen → Read the blog</a>
+              <details class="bento-details">
+                <summary>Mehr erfahren · Learn more</summary>
+                <div class="article">
+                  <p>Neben den Tools führe ich auch einen redaktionellen Blog aus meinem eigentlichen Berufsalltag: Ich arbeite im Luxusuhren-Einzelhandel in der Schweiz und schreibe „瑞士腕表笔记" (Schweizer Uhren-Notizen) für Käufer:innen von Gebrauchtuhren — mit Artikeln zur Echtheitsprüfung, zum zollfreien Uhrenkauf in Europa und zur Beobachtung des Gebrauchtmarkts, ergänzt um Beiträge zum Alltag in der Schweiz.</p>
+                  <p class="en"><em>Alongside the tools, I also run an editorial blog drawing on my actual day job: I work in luxury watch retail in Switzerland, and I write "瑞士腕表笔记" (Swiss Watch Notes) for secondhand-watch buyers — covering authenticity checks, duty-free watch shopping in Europe, and secondhand market observations, plus posts on everyday life in Switzerland.</em></p>
+                  <p class="en" style="margin-top:-4px;"><em>Note: the blog itself is written primarily in Chinese.</em></p>
+                  <p class="rules-heading">So findest du dich zurecht</p>
+                  <ul class="rules">
+                    <li>Nach Rubrik stöbern: Handwissen &amp; Echtheitsprüfung, Europa-Kauf &amp; Zollfrei-Guide, Gebrauchtmarkt-Beobachtung, Schweizer Alltag</li>
+                    <li>Unter „Kleine Tools" den eingebetteten Gebrauchtuhren-Wertschätzer direkt im Blog ausprobieren</li>
+                    <li>Neue Artikel per RSS-Feed abonnieren</li>
+                  </ul>
+                  <p class="rules-heading">How to navigate</p>
+                  <ul class="rules en">
+                    <li>Browse by category: watch knowledge &amp; authentication, Europe purchasing &amp; duty-free guide, secondhand market observations, everyday life in Switzerland</li>
+                    <li>Try the embedded Secondhand Watch Valuator directly from the "tools" section</li>
+                    <li>Subscribe to new posts via the RSS feed</li>
+                  </ul>
+                </div>
+              </details>
+            </div>
+          </article>
 
-      <section class="tool-section">
-        <h2>⌚💰 Gebrauchtuhren-Wertschätzer · Secondhand Watch Valuator</h2>
-        <div class="article">
-          <figure class="tool-figure">
-            <img src="images/watch-valuator-selecting.jpg" alt="A hand selecting a watch from an elegant display case" loading="lazy" width="1200" height="800">
-            <figcaption>Vom Preisvergleich zur eigenen Schätzung · From price check to your own estimate</figcaption>
-          </figure>
-          <p>Die Frage, die auf den Preisvergleich fast immer folgt, ist: „Was ist meine eigene Uhr eigentlich noch wert?" Der Gebrauchtuhren-Wertschätzer beantwortet das mit einem heuristischen Modell, das Marke, Modell, Material, Besitzdauer, Zustand sowie Box &amp; Papiere berücksichtigt und daraus eine grobe Werterhaltungs-Einschätzung errechnet — als Startpunkt für ein Verkaufsgespräch, nicht als offizielles Gutachten. Das Tool gibt es auch eingebettet direkt im Uhren-Blog und ist ebenfalls auf Chinesisch, Englisch und Deutsch verfügbar.</p>
-          <p class="en"><em>The question that almost always follows a price comparison is: "so what is my own watch actually worth now?" The Secondhand Watch Valuator answers that with a heuristic model factoring in brand, model, material, years of ownership, condition, and box &amp; papers to produce a rough value-retention estimate — a starting point for a resale conversation, not a formal appraisal. It's also embedded directly inside the watch blog, also available in Chinese, English, and German.</em></p>
-          <p class="rules-heading">So benutzt du das Tool</p>
-          <ul class="rules">
-            <li>Marke und Modell auswählen — der Basiswert wird automatisch übernommen</li>
-            <li>Material, Besitzdauer, Zustand sowie Box &amp; Papiere angeben</li>
-            <li>Gewünschte Währung wählen (USD, EUR, CHF, CNY)</li>
-            <li>Das Tool zeigt eine geschätzte Werterhaltung in Prozent</li>
-            <li>Hinweis: heuristische Schätzung, kein offizielles Gutachten</li>
-          </ul>
-          <p class="rules-heading">How to use it</p>
-          <ul class="rules en">
-            <li>Choose the brand and model — the base value fills in automatically</li>
-            <li>Specify material, years of ownership, condition, and box &amp; papers</li>
-            <li>Pick your currency (USD, EUR, CHF, CNY)</li>
-            <li>The tool shows an estimated value-retention percentage</li>
-            <li>Note: a heuristic estimate, not a formal appraisal</li>
-          </ul>
         </div>
-        <a class="cta-btn" href="/Secondhand-Watch-Valuator/">Uhr schätzen lassen → Estimate a watch</a>
-      </section>
-
-      <section class="tool-section">
-        <h2>🏔️🚤 Alpen-Routenplaner · Alpine Route Planner</h2>
-        <div class="article">
-          <p>Wer in der Schweiz wandern gehen will, kennt das Problem: Man hat eine grobe Idee — „irgendwas am Brienzersee" — aber am Ende braucht es trotzdem eine Stunde Recherche für Wetterlage, Schiffsfahrplan und die Frage, was man eigentlich mitnehmen soll. Der Alpen-Routenplaner nimmt eine Schweizer Seeregion (oder einen beliebigen anderen Ort) entgegen und stellt daraus automatisch ein komplettes Tagesprogramm zusammen: Live-Wetterdaten, aktuelle Schiffsfahrpläne der Seen, geschätzte Wanderzeiten, eine wetterabhängige Ausrüstungsliste und Restaurant-Empfehlungen entlang der Route — inklusive einer herunterladbaren Poster-Zusammenfassung für unterwegs.</p>
-          <p class="en"><em>Anyone planning a hike in Switzerland knows the problem: you have a rough idea — "something around Lake Brienz" — but still end up spending an hour checking the weather, the boat schedule, and what to actually pack. The Alpine Route Planner takes a Swiss lake region (or any other location) and automatically builds a full day itinerary from it: live weather data, current lake ferry schedules, estimated hiking times, a weather-based gear checklist, and restaurant recommendations along the route — including a downloadable poster summary for the trail.</em></p>
-          <p class="rules-heading">So benutzt du das Tool</p>
-          <ul class="rules">
-            <li>Seeregion auswählen (z. B. Brienzersee, Thunersee, Vierwaldstättersee) oder einen eigenen Ort eingeben</li>
-            <li>Das Tool ruft Live-Wetter und aktuelle Schiffsfahrpläne ab und baut daraus ein Tagesprogramm</li>
-            <li>Die Ausrüstungsliste passt sich automatisch an die aktuelle Wetterlage an</li>
-            <li>Route inklusive Restaurant-Tipps als Poster herunterladen</li>
-            <li>Sprache oben zwischen 中文 / EN / DE umschalten</li>
-          </ul>
-          <p class="rules-heading">How to use it</p>
-          <ul class="rules en">
-            <li>Choose a lake region (e.g. Lake Brienz, Lake Thun, Lake Lucerne) or enter your own location</li>
-            <li>The tool pulls live weather and current ferry schedules to build a day itinerary</li>
-            <li>The gear checklist adjusts automatically to current weather conditions</li>
-            <li>Download the route, including restaurant tips, as a poster</li>
-            <li>Switch language between 中文 / EN / DE at the top</li>
-          </ul>
-        </div>
-        <a class="cta-btn" href="/alpine-route-planner/">Route planen → Plan a route</a>
-      </section>
-
-      <section class="tool-section">
-        <h2>🏙️🗺️ Schweizer Stadtreiseführer · Swiss City Guide</h2>
-        <div class="article">
-          <p>Reiseführer-Apps behandeln meist jede Stadt gleich — aber ein Wochenende mit Kleinkind in Luzern sieht völlig anders aus als ein Solo-Trip nach Zürich für ein verlängertes Wochenende. Der Schweizer Stadtreiseführer deckt Zürich, Genf, Basel, Bern, Luzern und Lugano ab und passt Sehenswürdigkeiten, Essenstipps, Verkehrsmittel und sogar Kleidungsempfehlungen an den gewählten Reisestil und die Begleitung an — mit aktueller Wetterlage und einer interaktiven Karte, die Sehenswürdigkeiten, Restaurants und Flughäfen direkt anzeigt.</p>
-          <p class="en"><em>Most travel-guide apps treat every city the same — but a weekend in Lucerne with a toddler looks nothing like a solo long weekend in Zurich. The Swiss City Guide covers Zurich, Geneva, Basel, Bern, Lucerne, and Lugano, and tailors attractions, food tips, transit options, and even outfit recommendations to the travel style and companions you choose — with current weather and an interactive map showing attractions, restaurants, and airports directly.</em></p>
-          <p class="rules-heading">So benutzt du das Tool</p>
-          <ul class="rules">
-            <li>Stadt auswählen (Zürich, Genf, Basel, Bern, Luzern oder Lugano)</li>
-            <li>Reisestil (z. B. Kultur, Natur, Shopping) und Begleitung (allein, Paar, Familie …) angeben</li>
-            <li>„Reiseführer generieren" klicken für massgeschneiderte Sehenswürdigkeiten-, Essens- und Verkehrstipps</li>
-            <li>Interaktive Karte mit Sehenswürdigkeiten, Restaurants und Flughäfen erkunden</li>
-            <li>Sprache oben zwischen 中文 / EN / DE umschalten</li>
-          </ul>
-          <p class="rules-heading">How to use it</p>
-          <ul class="rules en">
-            <li>Choose a city (Zurich, Geneva, Basel, Bern, Lucerne, or Lugano)</li>
-            <li>Specify your travel style (e.g. culture, nature, shopping) and travel companions (solo, couple, family …)</li>
-            <li>Click "Generate guide" for tailored attractions, food, and transit recommendations</li>
-            <li>Explore the interactive map showing attractions, restaurants, and airports</li>
-            <li>Switch language between 中文 / EN / DE at the top</li>
-          </ul>
-        </div>
-        <a class="cta-btn" href="/swiss-city-guide/">Reiseführer erstellen → Build your guide</a>
-      </section>
-
-      <section class="tool-section">
-        <h2>📄✨ KI-Lebenslauf-Generator · AI Resume Builder</h2>
-        <div class="article">
-          <p>Einen Lebenslauf für eine internationale Bewerbung zu schreiben heißt meist: dieselben Angaben drei Mal in drei Sprachen zu formulieren. Der KI-Lebenslauf-Generator löst das mit einer vorlagenbasierten Logik statt einer KI-API: Persönliche Daten, Berufserfahrung, Ausbildung, Kenntnisse und Sprachen einmal eingeben — Berufsbezeichnung, Abschluss, gängige Verben und Sprachniveaus lassen sich aus Auswahllisten wählen und füllen automatisch die chinesische, englische und deutsche Formulierung. Für freie Texte wie das Profil gibt es einen „Kopieren"-Button pro Sprachfeld. Fünf Layouts (Klassisch, Modern, Minimalistisch, Seitenleiste, Banner — angelehnt an gängige Canva- und Word-Vorlagen) lassen sich jederzeit wechseln, ohne den Inhalt zu verlieren.</p>
-          <p class="en"><em>Writing a resume for an international application usually means phrasing the same details three times in three languages. The AI Resume Builder solves this with template logic instead of an AI API: enter your personal info, work experience, education, skills, and languages once — job title, degree, common action verbs, and language levels can be picked from dropdowns that instantly fill in the Chinese, English, and German wording. Free-text fields like the profile summary get a "copy" button per language box. Five layouts (Classic, Modern, Minimal, Sidebar, Banner — inspired by common Canva and Word templates) can be swapped anytime without losing your content.</em></p>
-          <p class="rules-heading">So benutzt du das Tool</p>
-          <ul class="rules">
-            <li>Persönliche Daten, Berufserfahrung, Ausbildung, Kenntnisse und Sprachen einmal ausfüllen</li>
-            <li>Auswahllisten für Berufsbezeichnung, Abschluss, Verben und Sprachen füllen automatisch alle drei Sprachen</li>
-            <li>Freitext (Profil, Tätigkeitsbeschreibungen) pro Sprache eintragen, mit „Kopieren"-Button als Startpunkt</li>
-            <li>Vorlage wählen: Klassisch, Modern, Minimalistisch, Seitenleiste oder Banner</li>
-            <li>Als PDF drucken, Text kopieren oder als .txt herunterladen — läuft komplett im Browser, keine KI-API, keine Anmeldung</li>
-          </ul>
-          <p class="rules-heading">How to use it</p>
-          <ul class="rules en">
-            <li>Fill in personal info, work experience, education, skills, and languages once</li>
-            <li>Dropdown presets for job title, degree, verbs, and languages instantly fill all three languages</li>
-            <li>Write free text (summary, job descriptions) per language, with a "copy" button as a starting point</li>
-            <li>Choose a template: Classic, Modern, Minimal, Sidebar, or Banner</li>
-            <li>Print to PDF, copy the text, or download as .txt — runs entirely in your browser, no AI API, no sign-up</li>
-          </ul>
-        </div>
-        <a class="cta-btn" href="/ai-resume-builder/">Lebenslauf erstellen → Build your resume</a>
       </section>
 
     </main>
