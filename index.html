@@ -5,10 +5,31 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Junping Koch — Kostenlose Web-Tools</title>
   <meta name="description" content="Kostenlose Browser-Tools von Junping Koch: Tierkreiszeichen-Rechner, Zufallsgruppen-Generator, Zeitzonen-Planer, Countdown Studio, Uhren-Preistrends, ein Europa-Reise Uhren-Steuerfrei-Rechner, ein Gebrauchtuhren-Wertschätzer, ein Uhren-Blog, ein Alpen-Routenplaner, ein Schweizer Stadtreiseführer und ein KI-Lebenslauf-Generator. Keine Anmeldung, keine Datenspeicherung.">
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-7LZZQ43QD6"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', {
+    'ad_storage': 'denied', 'ad_user_data': 'denied', 'ad_personalization': 'denied',
+    'analytics_storage': 'denied', 'wait_for_update': 500
+  });
+  (function(){
+    var KEY='cookieConsent', saved=localStorage.getItem(KEY);
+    function apply(g){ gtag('consent','update',{ad_storage:g?'granted':'denied',ad_user_data:g?'granted':'denied',ad_personalization:g?'granted':'denied',analytics_storage:g?'granted':'denied'}); }
+    if (saved==='granted') { apply(true); }
+    else if (saved!=='denied') {
+      document.addEventListener('DOMContentLoaded', function(){
+        var b=document.createElement('div');
+        b.style.cssText='position:fixed;left:0;right:0;bottom:0;z-index:99999;background:#20242e;color:#eef1f6;padding:14px 18px;font:14px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;box-shadow:0 -2px 12px rgba(0,0,0,.25);';
+        b.innerHTML='<span style="flex:1;min-width:240px;">本站使用 Cookie 用于统计访问与展示广告 · This site uses cookies for analytics and ads · Diese Website nutzt Cookies für Statistik und Werbung</span><span style="display:flex;gap:8px;flex-shrink:0;"><button id="cc-reject" style="background:transparent;border:1px solid #5c6472;color:#eef1f6;padding:8px 14px;border-radius:6px;cursor:pointer;">仅必要 · Essential only · Nur essenziell</button><button id="cc-accept" style="background:#2f6fed;border:none;color:#fff;padding:8px 14px;border-radius:6px;cursor:pointer;font-weight:600;">接受 · Accept · Akzeptieren</button></span>';
+        document.body.appendChild(b);
+        document.getElementById('cc-accept').onclick=function(){ localStorage.setItem(KEY,'granted'); apply(true); b.remove(); };
+        document.getElementById('cc-reject').onclick=function(){ localStorage.setItem(KEY,'denied'); b.remove(); };
+      });
+    }
+  })();
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7LZZQ43QD6"></script>
+<script>
   gtag('js', new Date());
   gtag('config', 'G-7LZZQ43QD6');
 </script>
