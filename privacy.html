@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Datenschutzerklärung · Privacy Policy · 隐私政策 — Junping Koch</title>
+<meta name="description" content="Datenschutzerklärung für die Web-Tools von Junping Koch: Cookies, Google AdSense, Google Analytics, localStorage, keine Nutzerkonten. Privacy policy covering cookies, ads, and analytics. 本站隐私政策：Cookie、广告、统计与本地存储说明。">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://junpingkoch-web.github.io/privacy.html">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%9C%A8%3C/text%3E%3C/svg%3E">
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', {
+    'ad_storage': 'denied', 'ad_user_data': 'denied', 'ad_personalization': 'denied',
+    'analytics_storage': 'denied', 'wait_for_update': 500
+  });
+  (function(){
+    var KEY='cookieConsent', saved=localStorage.getItem(KEY);
+    function apply(g){ gtag('consent','update',{ad_storage:g?'granted':'denied',ad_user_data:g?'granted':'denied',ad_personalization:g?'granted':'denied',analytics_storage:g?'granted':'denied'}); }
+    if (saved==='granted') { apply(true); }
+    else if (saved!=='denied') {
+      document.addEventListener('DOMContentLoaded', function(){
+        var b=document.createElement('div');
+        b.style.cssText='position:fixed;left:0;right:0;bottom:0;z-index:99999;background:#20242e;color:#eef1f6;padding:14px 18px;font:14px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;box-shadow:0 -2px 12px rgba(0,0,0,.25);';
+        b.innerHTML='<span style="flex:1;min-width:240px;">本站使用 Cookie 用于统计访问与展示广告 · This site uses cookies for analytics and ads · Diese Website nutzt Cookies für Statistik und Werbung</span><span style="display:flex;gap:8px;flex-shrink:0;"><button id="cc-reject" style="background:transparent;border:1px solid #5c6472;color:#eef1f6;padding:8px 14px;border-radius:6px;cursor:pointer;">仅必要 · Essential only · Nur essenziell</button><button id="cc-accept" style="background:#2f6fed;border:none;color:#fff;padding:8px 14px;border-radius:6px;cursor:pointer;font-weight:600;">接受 · Accept · Akzeptieren</button></span>';
+        document.body.appendChild(b);
+        document.getElementById('cc-accept').onclick=function(){ localStorage.setItem(KEY,'granted'); apply(true); b.remove(); };
+        document.getElementById('cc-reject').onclick=function(){ localStorage.setItem(KEY,'denied'); b.remove(); };
+      });
+    }
+  })();
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7LZZQ43QD6"></script>
+<script>
+  gtag('js', new Date());
+  gtag('config', 'G-7LZZQ43QD6');
+</script>
+<style>
+  :root{
+    --bg:#E9ECF1; --surface:#F5F7FA; --border:#D5DBE3; --ink:#1F2733; --ink-soft:#5C6472;
+    --accent:#2B3A55; --accent-strong:#16202F;
+    --font-display: ui-serif, Georgia, "Iowan Old Style", "Noto Serif SC", "Songti SC", serif;
+    --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --bg:#141821; --surface:#1C222E; --border:#2E3648; --ink:#E7EAF0; --ink-soft:#98A2B3; --accent:#7C93B8; --accent-strong:#AEC2E0; }
+  }
+  *{ box-sizing:border-box; }
+  body{ margin:0; background:var(--bg); color:var(--ink); font-family:var(--font-body); line-height:1.65; }
+  .wrap{ max-width:760px; margin:0 auto; padding:56px 20px 64px; }
+  .bento-card{ background:var(--surface); border:1px solid var(--border); border-radius:14px; box-shadow:0 1px 2px rgba(0,0,0,.04); overflow:hidden; margin-bottom:24px; }
+  .bento-body{ padding:32px 32px 28px; }
+  h1{ font-family:var(--font-display); font-size:clamp(24px,4vw,32px); margin:0 0 6px; color:var(--accent-strong); }
+  .updated{ font-size:12.5px; color:var(--ink-soft); margin:0 0 20px; }
+  .lang-label{ font-size:11.5px; font-weight:700; text-transform:uppercase; letter-spacing:.05em; color:var(--ink-soft); margin:24px 0 8px; }
+  .lang-label:first-of-type{ margin-top:0; }
+  h2.section{ font-size:15px; font-weight:700; color:var(--ink); margin:16px 0 6px; }
+  h2.section:first-of-type{ margin-top:0; }
+  p{ margin:0 0 12px; font-size:14.5px; max-width:66ch; }
+  p:last-child{ margin-bottom:0; }
+  p.en{ font-style:italic; color:var(--ink-soft); }
+  a.inline{ color:var(--accent-strong); }
+  .back{ display:inline-block; margin-bottom:20px; font-size:13.5px; font-weight:700; color:var(--accent-strong); text-decoration:none; }
+  .back:hover{ text-decoration:underline; }
+  nav.legal-nav{ display:flex; flex-wrap:wrap; gap:14px; justify-content:center; font-size:13px; margin:8px 0 28px; }
+  nav.legal-nav a{ color:var(--ink-soft); text-decoration:none; }
+  nav.legal-nav a:hover{ color:var(--accent-strong); text-decoration:underline; }
+  nav.legal-nav a.current{ color:var(--accent-strong); font-weight:700; }
+  footer{ text-align:center; font-size:12.5px; color:var(--ink-soft); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="index.html">← Zur Startseite · Back to home · 返回首页</a>
+
+  <header class="bento-card">
+    <div class="bento-body">
+      <h1>Datenschutzerklärung · Privacy Policy · 隐私政策</h1>
+      <p class="updated">Stand: August 2026 · Last updated: August 2026 · 最后更新：2026年8月</p>
+
+      <p class="lang-label">Deutsch</p>
+      <p>Diese Website (die Sammlung der unter junpingkoch-web.github.io verlinkten Tools sowie diese Unterseiten) wird von Junping Koch als privates Projekt betrieben. Es gibt keine Nutzerkonten und keine serverseitige Datenbank — alle Tools laufen als statische Seiten direkt in deinem Browser.</p>
+      <h2 class="section">Was gespeichert wird</h2>
+      <p>Deine Sprach- und Layout-Auswahl sowie eventuelle Entwürfe (z. B. im KI-Lebenslauf-Generator) werden ausschließlich im localStorage deines Browsers gespeichert und nie an einen Server übertragen. Du kannst diese Daten jederzeit über die Einstellungen deines Browsers löschen.</p>
+      <h2 class="section">Cookies &amp; Werbung</h2>
+      <p>Diese Website nutzt Google AdSense zur Anzeige von Werbung und Google Analytics (gtag.js) zur anonymisierten Besucherstatistik. Beide Dienste können Cookies setzen und, sofern du zustimmst, Daten zu Werbezwecken verarbeiten. Beim ersten Besuch erscheint ein Cookie-Banner, über das du wählen kannst zwischen „Nur essenziell" (keine Werbe-/Analyse-Cookies) und „Akzeptieren". Deine Wahl wird lokal gespeichert und kann durch Löschen der Browserdaten zurückgesetzt werden. Google verarbeitet dabei Daten gemäß den eigenen Datenschutzrichtlinien; personalisierte Werbung lässt sich unter <a class="inline" href="https://adssettings.google.com" target="_blank" rel="noopener">adssettings.google.com</a> verwalten oder deaktivieren.</p>
+      <h2 class="section">Externe Links</h2>
+      <p>Buttons wie „Buy Me a Coffee" oder Links zu LinkedIn/E-Mail führen zu externen Diensten mit eigenen Datenschutzrichtlinien, auf die ich keinen Einfluss habe.</p>
+      <p>Fragen zum Datenschutz beantworte ich gern über die <a class="inline" href="contact.html">Kontaktseite</a>.</p>
+
+      <p class="lang-label">English</p>
+      <p class="en">This website (the collection of tools linked from junpingkoch-web.github.io, and these subpages) is run by Junping Koch as a personal project. There are no user accounts and no server-side database — every tool is a static page that runs directly in your browser.</p>
+      <h2 class="section">What gets stored</h2>
+      <p class="en">Your language and layout choices, and any drafts you create (e.g. in the AI Resume Builder), are stored only in your browser's localStorage and are never sent to a server. You can clear this data anytime through your browser settings.</p>
+      <h2 class="section">Cookies &amp; advertising</h2>
+      <p class="en">This site uses Google AdSense to show ads and Google Analytics (gtag.js) for anonymized visitor statistics. Both can set cookies and, if you consent, process data for advertising purposes. On your first visit you'll see a cookie banner where you can choose "Essential only" (no ad/analytics cookies) or "Accept". Your choice is stored locally and can be reset by clearing your browser data. Google processes this data under its own privacy policies; you can manage or opt out of personalized advertising at <a class="inline" href="https://adssettings.google.com" target="_blank" rel="noopener">adssettings.google.com</a>.</p>
+      <h2 class="section">External links</h2>
+      <p class="en">Buttons like "Buy Me a Coffee" or links to LinkedIn/email lead to external services with their own privacy policies, which I have no control over.</p>
+      <p class="en">Happy to answer privacy questions via the <a class="inline" href="contact.html">contact page</a>.</p>
+
+      <p class="lang-label">中文</p>
+      <p>本站（junpingkoch-web.github.io 及其下属所有工具子页面）由 Junping Koch 作为个人项目运营。没有用户账号系统，也没有服务器端数据库——所有工具都是纯静态页面，直接在你的浏览器中运行。</p>
+      <h2 class="section">会保存什么</h2>
+      <p>你选择的语言、排版偏好，以及你在使用某些工具（例如 AI 简历生成器）时产生的草稿，只会保存在你浏览器本地的 localStorage 中，不会被传输到任何服务器。你可以随时通过浏览器设置清除这些数据。</p>
+      <h2 class="section">Cookie 与广告</h2>
+      <p>本站使用 Google AdSense 展示广告，并使用 Google Analytics（gtag.js）进行匿名访问统计。这两项服务可能会设置 Cookie，并在你同意的情况下处理用于广告目的的数据。首次访问时会出现 Cookie 同意横幅，你可以选择「仅必要」（不启用广告/统计 Cookie）或「接受」。你的选择会保存在本地，清除浏览器数据即可重置。Google 会按照其自身的隐私政策处理这些数据，你可以在 <a class="inline" href="https://adssettings.google.com" target="_blank" rel="noopener">adssettings.google.com</a> 管理或关闭个性化广告。</p>
+      <h2 class="section">外部链接</h2>
+      <p>例如「Buy Me a Coffee」按钮，或指向 LinkedIn / 邮箱的链接，会跳转到有各自独立隐私政策的第三方服务，这部分我无法控制。</p>
+      <p>如果你对隐私问题有疑问，欢迎通过<a class="inline" href="contact.html">联系页面</a>联系我。</p>
+    </div>
+  </header>
+
+  <nav class="legal-nav">
+    <a href="index.html">Home · 首页</a>
+    <a href="about.html">About · 关于</a>
+    <a href="contact.html">Contact · 联系</a>
+    <a class="current" href="privacy.html">Privacy · 隐私</a>
+    <a href="terms.html">Terms · 条款</a>
+  </nav>
+  <footer>© 2026 Junping Koch</footer>
+</div>
+</body>
+</html>

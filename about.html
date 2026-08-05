@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Über mich · About Me · 关于我 — Junping Koch</title>
+<meta name="description" content="Wer hinter den kostenlosen Web-Tools von Junping Koch steht: Hintergrund im Schweizer Luxusuhren-Einzelhandel, KI-gestützte Entwicklung, keine Firma, keine Nutzerkonten. Who's behind Junping Koch's free web tools. 关于本站及其运营者。">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://junpingkoch-web.github.io/about.html">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%9C%A8%3C/text%3E%3C/svg%3E">
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', {
+    'ad_storage': 'denied', 'ad_user_data': 'denied', 'ad_personalization': 'denied',
+    'analytics_storage': 'denied', 'wait_for_update': 500
+  });
+  (function(){
+    var KEY='cookieConsent', saved=localStorage.getItem(KEY);
+    function apply(g){ gtag('consent','update',{ad_storage:g?'granted':'denied',ad_user_data:g?'granted':'denied',ad_personalization:g?'granted':'denied',analytics_storage:g?'granted':'denied'}); }
+    if (saved==='granted') { apply(true); }
+    else if (saved!=='denied') {
+      document.addEventListener('DOMContentLoaded', function(){
+        var b=document.createElement('div');
+        b.style.cssText='position:fixed;left:0;right:0;bottom:0;z-index:99999;background:#20242e;color:#eef1f6;padding:14px 18px;font:14px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;box-shadow:0 -2px 12px rgba(0,0,0,.25);';
+        b.innerHTML='<span style="flex:1;min-width:240px;">本站使用 Cookie 用于统计访问与展示广告 · This site uses cookies for analytics and ads · Diese Website nutzt Cookies für Statistik und Werbung</span><span style="display:flex;gap:8px;flex-shrink:0;"><button id="cc-reject" style="background:transparent;border:1px solid #5c6472;color:#eef1f6;padding:8px 14px;border-radius:6px;cursor:pointer;">仅必要 · Essential only · Nur essenziell</button><button id="cc-accept" style="background:#2f6fed;border:none;color:#fff;padding:8px 14px;border-radius:6px;cursor:pointer;font-weight:600;">接受 · Accept · Akzeptieren</button></span>';
+        document.body.appendChild(b);
+        document.getElementById('cc-accept').onclick=function(){ localStorage.setItem(KEY,'granted'); apply(true); b.remove(); };
+        document.getElementById('cc-reject').onclick=function(){ localStorage.setItem(KEY,'denied'); b.remove(); };
+      });
+    }
+  })();
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7LZZQ43QD6"></script>
+<script>
+  gtag('js', new Date());
+  gtag('config', 'G-7LZZQ43QD6');
+</script>
+<style>
+  :root{
+    --bg:#E9ECF1; --surface:#F5F7FA; --border:#D5DBE3; --ink:#1F2733; --ink-soft:#5C6472;
+    --accent:#2B3A55; --accent-strong:#16202F;
+    --font-display: ui-serif, Georgia, "Iowan Old Style", "Noto Serif SC", "Songti SC", serif;
+    --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --bg:#141821; --surface:#1C222E; --border:#2E3648; --ink:#E7EAF0; --ink-soft:#98A2B3; --accent:#7C93B8; --accent-strong:#AEC2E0; }
+  }
+  *{ box-sizing:border-box; }
+  body{ margin:0; background:var(--bg); color:var(--ink); font-family:var(--font-body); line-height:1.65; }
+  .wrap{ max-width:760px; margin:0 auto; padding:56px 20px 64px; }
+  .bento-card{ background:var(--surface); border:1px solid var(--border); border-radius:14px; box-shadow:0 1px 2px rgba(0,0,0,.04); overflow:hidden; margin-bottom:24px; }
+  .bento-body{ padding:32px 32px 28px; }
+  h1{ font-family:var(--font-display); font-size:clamp(24px,4vw,32px); margin:0 0 18px; color:var(--accent-strong); }
+  .lang-label{ font-size:11.5px; font-weight:700; text-transform:uppercase; letter-spacing:.05em; color:var(--ink-soft); margin:22px 0 8px; }
+  .lang-label:first-of-type{ margin-top:0; }
+  p{ margin:0 0 12px; font-size:15px; max-width:66ch; }
+  p:last-child{ margin-bottom:0; }
+  p.en{ font-style:italic; color:var(--ink-soft); }
+  .back{ display:inline-block; margin-bottom:20px; font-size:13.5px; font-weight:700; color:var(--accent-strong); text-decoration:none; }
+  .back:hover{ text-decoration:underline; }
+  nav.legal-nav{ display:flex; flex-wrap:wrap; gap:14px; justify-content:center; font-size:13px; margin:8px 0 28px; }
+  nav.legal-nav a{ color:var(--ink-soft); text-decoration:none; }
+  nav.legal-nav a:hover{ color:var(--accent-strong); text-decoration:underline; }
+  nav.legal-nav a.current{ color:var(--accent-strong); font-weight:700; }
+  footer{ text-align:center; font-size:12.5px; color:var(--ink-soft); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="index.html">← Zur Startseite · Back to home · 返回首页</a>
+
+  <header class="bento-card">
+    <div class="bento-body">
+      <h1>Über mich · About Me · 关于我</h1>
+
+      <p class="lang-label">Deutsch</p>
+      <p>Ich bin Junping Koch und betreibe diese Sammlung kleiner Web-Tools als persönliches Projekt — kein Unternehmen, kein Team, keine Investoren dahinter. Hauptberuflich arbeite ich als Client Advisor im Schweizer Luxusuhren-Einzelhandel (u. a. bei Bucherer und Swatch) und befinde mich aktuell im Übergang in den Bereich AI &amp; Tech Sales.</p>
+      <p>Jedes Tool auf dieser Seite ist aus einer konkreten Alltagssituation entstanden — sei es die Frage, wie viel Mehrwertsteuer man beim Uhrenkauf in Europa zurückbekommt, oder wie man ein Meeting über mehrere Zeitzonen hinweg plant. Ich entwickle die Tools selbst mit modernen Web-Technologien und KI-gestützten Entwicklungswerkzeugen (u. a. Claude Code) — das bedeutet, Code und Texte entstehen mit KI-Unterstützung, Auswahl, Faktenprüfung und redaktionelle Entscheidungen liegen aber bei mir.</p>
+      <p>Alle Tools laufen vollständig im Browser: keine Anmeldung, kein Konto, keine serverseitige Speicherung persönlicher Daten. Die Seite finanziert sich über Werbung (Google AdSense) und freiwillige Unterstützung über „Buy Me a Coffee" — dadurch bleibt der Zugang für alle kostenlos.</p>
+
+      <p class="lang-label">English</p>
+      <p class="en">I'm Junping Koch, and I run this collection of small web tools as a personal project — no company, no team, no investors behind it. My main job is as a Client Advisor in Swiss luxury watch retail (including Bucherer and Swatch), and I'm currently transitioning into AI &amp; Tech Sales.</p>
+      <p class="en">Every tool here started from a very concrete everyday situation — figuring out how much VAT you actually get back buying a watch in Europe, or planning a meeting across multiple time zones. I build the tools myself using modern web technologies and AI-assisted development tools (including Claude Code) — meaning code and copy are drafted with AI help, but the choices, fact-checking, and editorial decisions are mine.</p>
+      <p class="en">Every tool runs entirely in your browser: no sign-up, no account, no personal data stored server-side. The site is supported by advertising (Google AdSense) and voluntary "Buy Me a Coffee" contributions — which is what keeps everything free to use.</p>
+
+      <p class="lang-label">中文</p>
+      <p>我是 Junping Koch，这个小工具合集是我个人的业余项目——背后没有公司、没有团队，也没有投资人。我的主业是瑞士高端腕表零售的客户顾问（曾任职于 Bucherer 和 Swatch），目前正在向 AI 与科技销售（Tech Sales）领域转型。</p>
+      <p>这里的每一个工具，都源自一个具体的生活场景——比如在欧洲买表到底能退回多少增值税，或者如何安排一场跨时区的会议。我使用现代网页技术和 AI 辅助开发工具（包括 Claude Code）自己开发这些工具——也就是说代码和文案由 AI 协助撰写，但内容选择、事实核对和最终决定都由我负责。</p>
+      <p>所有工具都完全在你的浏览器本地运行：无需注册、无需账号，也不会把个人数据存到服务器上。本站通过 Google AdSense 广告和「Buy Me a Coffee」自愿打赏维持运营——这也是所有工具能保持免费的原因。</p>
+    </div>
+  </header>
+
+  <nav class="legal-nav">
+    <a href="index.html">Home · 首页</a>
+    <a class="current" href="about.html">About · 关于</a>
+    <a href="contact.html">Contact · 联系</a>
+    <a href="privacy.html">Privacy · 隐私</a>
+    <a href="terms.html">Terms · 条款</a>
+  </nav>
+  <footer>© 2026 Junping Koch</footer>
+</div>
+</body>
+</html>
