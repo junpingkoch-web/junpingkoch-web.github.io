@@ -52,6 +52,11 @@ swiss-city-guide、ai-resume-builder 等），每个工具都是零构建静态�
   不要直接 `display:none`——否则键盘用户 Tab 不到，无法用空格键触发
 - **法律页面（Impressum 等）联系方式含哪些信息，要先问用户**：姓名/邮箱/地址暴露程度是用户自己的
   隐私决定，不要替用户决定要不要公开地址
+- **Unsplash 浏览器自动化时好时坏**：曾经出现连续多次 `navigate` 被拒绝、标签页无故关闭、
+  截图超时（"Browser pane is not displayed"）。别在同一个方法上反复重试烧掉很多轮——试 2-3 次
+  同一种手法不行，就直接跟用户提"要不要改用纯 CSS/SVG 图标（不依赖外部图片，现在就能上线）"这个
+  备选方案，别硬耗。纯 SVG 图标要用 `currentColor` 继承颜色，配色复用站点自己的 CSS 变量
+  （`--accent`/`--accent-strong`/`--bg`/`--border`），不要写死颜色值
 
 ## 二维码海报生成流程（`images/qr-navigation-poster-a4*.png`）
 这类"文字+若干真实二维码"的印刷级图片，没有可编辑源文件时按下面流程重新生成，不要直接在图片编辑器里
