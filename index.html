@@ -83,6 +83,17 @@
     h1{ font-family:var(--font-display); font-size:clamp(26px,4vw,36px); margin:0 0 4px; color:var(--accent-strong); }
     p.lede{ color:var(--ink-soft); font-size:16px; max-width:56ch; margin:0 auto; }
     p.lede.en{ font-style:italic; }
+    .hero-tagline{ margin:0; font-size:14px; font-weight:700; color:var(--ink-soft); }
+    .hero-tagline em{ font-style:italic; font-weight:600; }
+    .hero-tagline-sep{ opacity:.5; padding:0 2px; }
+    .hero-expand-hint{
+      display:inline-block; margin:2px auto 0; font-size:12.5px; font-weight:700;
+      color:var(--accent-strong); cursor:pointer; user-select:none;
+    }
+    .hero-expand-hint:hover{ text-decoration:underline; }
+    .hero-expand-hint-less{ display:none; }
+    .bio-toggle-input:checked ~ .wrap .bento-hero .hero-expand-hint-more{ display:none; }
+    .bio-toggle-input:checked ~ .wrap .bento-hero .hero-expand-hint-less{ display:inline; }
     .hero-teaser{ display:flex; flex-direction:column; gap:10px; }
     .hero-more{ display:flex; flex-direction:column; gap:10px; margin-top:10px; }
 
@@ -226,6 +237,11 @@
     <header class="bento-card bento-hero">
       <div class="bento-body">
         <h1>Junping Koch</h1>
+        <p class="hero-tagline">AI Sales Development · Ex-Luxury Client Advisor <span class="hero-tagline-sep">|</span> <em>AI &amp; Tech Sales · Ex-Client Advisor (Bucherer, Swatch)</em></p>
+        <label for="bio-toggle" class="hero-expand-hint">
+          <span class="hero-expand-hint-more">↓ Mehr über mich · Show more</span>
+          <span class="hero-expand-hint-less">↑ Weniger anzeigen · Show less</span>
+        </label>
         <div class="hero-teaser">
           <p class="lede">Willkommen! Ich bin Junping Koch. Nach mehreren Jahren als Client Advisor im Schweizer Luxusuhren-Einzelhandel (u. a. bei Bucherer und Swatch) verbinde ich mein Gespür für exzellenten Kundenservice heute mit meiner Leidenschaft für Technologie — aktuell fokussiere ich mich auf den Übergang in den Bereich <strong>AI &amp; Tech Sales</strong>.</p>
           <p class="lede en"><em>Welcome! I'm Junping Koch. Drawing on several years as a Client Advisor in Swiss luxury watch retail (including Bucherer and Swatch), I now combine my dedication to client success with a deep passion for technology — I'm currently upskilling and transitioning into <strong>AI &amp; Tech Sales</strong>.</em></p>
