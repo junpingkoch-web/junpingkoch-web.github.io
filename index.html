@@ -80,6 +80,15 @@
     /* ---- Hero / intro card ---- */
     .bento-hero{ max-width:720px; margin:0 auto 48px; }
     .bento-hero .bento-body{ padding:44px 32px 36px; text-align:center; }
+    .hero-row{ display:flex; align-items:center; justify-content:center; gap:28px; }
+    .hero-text-col{ display:flex; flex-direction:column; gap:12px; flex:1; min-width:0; max-width:520px; }
+    .hero-icon{
+      flex-shrink:0; width:84px; height:84px; border-radius:50%;
+      background:var(--bg); border:1px solid var(--border);
+      display:flex; align-items:center; justify-content:center; color:var(--accent);
+    }
+    .hero-icon svg{ width:52px; height:52px; }
+    @media (max-width:640px){ .hero-icon{ display:none; } }
     h1{ font-family:var(--font-display); font-size:clamp(26px,4vw,36px); margin:0 0 4px; color:var(--accent-strong); }
     p.lede{ color:var(--ink-soft); font-size:16px; max-width:56ch; margin:0 auto; }
     p.lede.en{ font-style:italic; }
@@ -234,24 +243,47 @@
 
     <header class="bento-card bento-hero">
       <div class="bento-body">
-        <h1>Junping Koch</h1>
-        <p class="hero-tagline">AI Sales Development · Ex-Luxury Client Advisor</p>
-        <label for="bio-toggle" class="hero-expand-hint">
-          <span class="hero-expand-hint-more">↓ Mehr über mich · Show more</span>
-          <span class="hero-expand-hint-less">↑ Weniger anzeigen · Show less</span>
-        </label>
-        <div class="hero-teaser">
-          <p class="lede">Willkommen! Ich bin Junping Koch. Nach mehreren Jahren als Client Advisor im Schweizer Luxusuhren-Einzelhandel (u. a. bei Bucherer und Swatch) verbinde ich mein Gespür für exzellenten Kundenservice heute mit meiner Leidenschaft für Technologie — aktuell fokussiere ich mich auf den Übergang in den Bereich <strong>AI &amp; Tech Sales</strong>.</p>
-          <p class="lede en"><em>Welcome! I'm Junping Koch. Drawing on several years as a Client Advisor in Swiss luxury watch retail (including Bucherer and Swatch), I now combine my dedication to client success with a deep passion for technology — I'm currently upskilling and transitioning into <strong>AI &amp; Tech Sales</strong>.</em></p>
-        </div>
-        <details class="bento-details">
-          <summary>Mehr über mich · More about me</summary>
-          <div class="hero-more">
-            <p class="lede">Das hier ist meine kleine Ecke im Internet für interkulturelle Projekte und nützliche Alltags-Tools. Jedes Projekt entsteht aus einer ganz konkreten Situation — wie man ein internationales Meeting plant oder eine Klasse fair in Gruppen aufteilt. Entwickelt habe ich die Tools mit modernen Web-Technologien und KI-Unterstützung; sie laufen komplett im Browser, sind kostenlos und verlangen weder eine Anmeldung noch das Speichern persönlicher Daten.</p>
-            <p class="lede en"><em>This is my small corner of the internet for intercultural projects and practical everyday tools. Most ideas start from a very concrete situation — like scheduling an international meeting or splitting a class into fair groups. Built with modern web technologies and AI-assisted workflows, every tool here runs entirely in your browser, is free, and never asks you to sign up or stores your personal data.</em></p>
-            <p class="lede">你好，我是 Junping。我曾在瑞士高端腕表零售行业担任客户顾问（包括 Bucherer 和 Swatch），如今正致力于向 <strong>AI 与科技销售（Tech Sales）</strong>领域转型，把对高净值客户需求的敏锐洞察与前沿 AI 技术结合起来。这个主页上的所有轻量级工具，都是我借助 AI 工作流独立开发的，用最简单的方式解决跨时区沟通、公平分组等日常痛点——全部在本地浏览器运行，免费使用，不需要注册，也不会保存你的个人数据。</p>
+        <div class="hero-row">
+          <div class="hero-icon hero-icon-left" aria-hidden="true">
+            <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="32" cy="14" r="4.5" stroke="currentColor" stroke-width="2.4"/>
+              <circle cx="14" cy="32" r="4.5" stroke="currentColor" stroke-width="2.4"/>
+              <circle cx="50" cy="32" r="4.5" stroke="currentColor" stroke-width="2.4"/>
+              <circle cx="22" cy="50" r="4.5" stroke="currentColor" stroke-width="2.4"/>
+              <circle cx="42" cy="50" r="4.5" stroke="currentColor" stroke-width="2.4"/>
+              <circle cx="32" cy="32" r="6" stroke="currentColor" stroke-width="2.4"/>
+              <path d="M32 18.5V26M18 30.5l8.5-1M46 30.5l-8.5-1M25 44.5L29 37M39 44.5L35 37" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
           </div>
-        </details>
+          <div class="hero-text-col">
+            <h1>Junping Koch</h1>
+            <p class="hero-tagline">AI Sales Development · Ex-Luxury Client Advisor</p>
+            <label for="bio-toggle" class="hero-expand-hint">
+              <span class="hero-expand-hint-more">↓ Mehr über mich · Show more</span>
+              <span class="hero-expand-hint-less">↑ Weniger anzeigen · Show less</span>
+            </label>
+            <div class="hero-teaser">
+              <p class="lede">Willkommen! Ich bin Junping Koch. Nach mehreren Jahren als Client Advisor im Schweizer Luxusuhren-Einzelhandel (u. a. bei Bucherer und Swatch) verbinde ich mein Gespür für exzellenten Kundenservice heute mit meiner Leidenschaft für Technologie — aktuell fokussiere ich mich auf den Übergang in den Bereich <strong>AI &amp; Tech Sales</strong>.</p>
+              <p class="lede en"><em>Welcome! I'm Junping Koch. Drawing on several years as a Client Advisor in Swiss luxury watch retail (including Bucherer and Swatch), I now combine my dedication to client success with a deep passion for technology — I'm currently upskilling and transitioning into <strong>AI &amp; Tech Sales</strong>.</em></p>
+            </div>
+            <details class="bento-details">
+              <summary>Mehr über mich · More about me</summary>
+              <div class="hero-more">
+                <p class="lede">Das hier ist meine kleine Ecke im Internet für interkulturelle Projekte und nützliche Alltags-Tools. Jedes Projekt entsteht aus einer ganz konkreten Situation — wie man ein internationales Meeting plant oder eine Klasse fair in Gruppen aufteilt. Entwickelt habe ich die Tools mit modernen Web-Technologien und KI-Unterstützung; sie laufen komplett im Browser, sind kostenlos und verlangen weder eine Anmeldung noch das Speichern persönlicher Daten.</p>
+                <p class="lede en"><em>This is my small corner of the internet for intercultural projects and practical everyday tools. Most ideas start from a very concrete situation — like scheduling an international meeting or splitting a class into fair groups. Built with modern web technologies and AI-assisted workflows, every tool here runs entirely in your browser, is free, and never asks you to sign up or stores your personal data.</em></p>
+                <p class="lede">你好，我是 Junping。我曾在瑞士高端腕表零售行业担任客户顾问（包括 Bucherer 和 Swatch），如今正致力于向 <strong>AI 与科技销售（Tech Sales）</strong>领域转型，把对高净值客户需求的敏锐洞察与前沿 AI 技术结合起来。这个主页上的所有轻量级工具，都是我借助 AI 工作流独立开发的，用最简单的方式解决跨时区沟通、公平分组等日常痛点——全部在本地浏览器运行，免费使用，不需要注册，也不会保存你的个人数据。</p>
+              </div>
+            </details>
+          </div>
+          <div class="hero-icon hero-icon-right" aria-hidden="true">
+            <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M24 8h16M24 56h16" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
+              <circle cx="32" cy="32" r="19" stroke="currentColor" stroke-width="2.4"/>
+              <path d="M32 20v12l8 5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M32 15v3M32 46v3M49 32h-3M18 32h-3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </div>
+        </div>
       </div>
     </header>
 
