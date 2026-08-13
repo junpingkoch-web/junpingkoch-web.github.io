@@ -60,7 +60,10 @@ swiss-city-guide、ai-resume-builder 等），每个工具都是零构建静态�
 
 ## 二维码海报生成流程（`images/qr-navigation-poster-a4*.png`）
 这类"文字+若干真实二维码"的印刷级图片，没有可编辑源文件时按下面流程重新生成，不要直接在图片编辑器里
-拼贴或让 AI 画"看起来像"二维码的图案（那种码扫不出来）：
+拼贴或让 AI 画"看起来像"二维码的图案（那种码扫不出来）。两种生成方法都可以，选更顺手的那个，
+**但第 5 步"必须验证解码"对两种方法都是硬性要求，不能因为改了生成方法就跳过**：
+
+**方法 A（HTML + 无头 Chrome 截图，适合自定义程度高的布局）：**
 1. 用 `api.qrserver.com/v1/create-qr-code/?size=600x600&data=<url>` 给每个真实链接下载一张真二维码 PNG
 2. 转 base64 内嵌进一个自包含的 HTML 模板，配色复用站点自己的 CSS 变量（`--bg`/`--surface`/`--border` 等）
 3. 用本机 Chrome 的无头截图模式渲染成精确像素尺寸（A4@300dpi = 2480×3508px）：
@@ -69,11 +72,29 @@ swiss-city-guide、ai-resume-builder 等），每个工具都是零构建静态�
 4. 内容自然高度几乎不会正好等于目标高度，不要凭 CSS 数值手算——往页面末尾插一个 marker 元素，
    用无头 Chrome 的 `--dump-dom` 读它的 `getBoundingClientRect().bottom` 拿到真实高度，
    再用 `transform: scale(目标高度/实际高度)` 包一层、`margin-left` 居中，保证输出正好是目标像素尺寸
-5. **上线前必须验证二维码真的能扫**：用同样的 `getBoundingClientRect()` 技巧拿到每个码在最终图片里的
-   精确坐标，起一个本地 `http.server`（file:// 协议下 canvas 会因为跨域被"污染"读不出像素），
-   在页面里用 jsQR（`cdn.jsdelivr.net/npm/jsqr`）逐个裁剪解码，比对解码结果和期望链接是否完全一致
-- 需要多语言版本时（如德语版海报），标题/说明文字翻译要贴合各工具在 `index.html` 里已经用过的
-  德语措辞，不要另起一套新译法造成站内不一致
+
+**方法 B（纯 Python，更简单，2026-08-13 起用于海报+单独二维码两种输出，实测两者都可行）：**
+`qrcode` 库本地编码（`qr.add_data(url); qr.make(fit=True); qr.make_image(fill_color=..., back_color=...)`，
+配色同样取站点的 `--accent-strong`/`--surface`）+ `PIL` 直接在画布上拼版/加文字标签，`img.save(path, dpi=(300,300))`
+控制打印尺寸。不用下载第三方生成的图也不用起浏览器，链接本身也不会被上传到任何第三方服务。中文/德语（含
+变音符号）加粗标签统一用 `C:\Windows\Fonts\msyhbd.ttc`（微软雅黑粗体）——Windows 默认没有覆盖 CJK 的粗体衬线字体。
+标签换行不要硬编码分割点，按空格贪心换行，遇到单个词还是太宽再逐步调小字号重排。
+
+5. **上线前必须验证二维码真的能扫，不管用哪种方法生成的**：
+   - 方法 A 的原生做法：用 `getBoundingClientRect()` 拿到每个码在最终图片里的精确坐标，起本地
+     `http.server`（file:// 协议下 canvas 会因为跨域被"污染"读不出像素），页面里用 jsQR
+     （`cdn.jsdelivr.net/npm/jsqr`）逐个裁剪解码
+   - 方法 B 更简单：Python `opencv-python` 的 `cv2.QRCodeDetector().detectAndDecode(img)`（单个文件）
+     或 `.detectAndDecodeMulti(img)`（一张图里有多个码，比如整张海报）直接解码，逐一比对解码结果和期望
+     URL 是否完全一致——**`cv2.imread` 不支持含中文的路径会静默返回 `None`，要用
+     `cv2.imdecode(np.fromfile(path, dtype=np.uint8), cv2.IMREAD_COLOR)` 代替**
+   - 2026-08-13 的教训：生成了一整套海报+单独二维码发给用户之后才想起来做这一步验证——这次解码全部
+     正确，但流程上属于事后补救，不是本该有的顺序。**验证必须在"发给用户/推送仓库"之前完成，不是之后**
+- 需要多语言版本时（如德语版海报/二维码标签），标题/说明文字翻译要贴合各工具在 `index.html` 里已经用过的
+  德语措辞（Startseite / Uhren-Blog / Europa-Reise Uhren-Steuerfrei-Rechner / Gebrauchtuhren-Wertschätzer /
+  Uhren-Preistrends / Alpen-Routenplaner / Schweizer Stadtreiseführer / KI-Lebenslauf-Generator /
+  Tierkreiszeichen-Rechner / Countdown Studio / Zeitzonen-Planer / Zufallsgruppen-Generator），
+  不要另起一套新译法造成站内不一致
 
 ## 持续维护
 每次你需要重复纠正 Claude 同一件事三次以上，就把结论补进这个文件对应章节。
