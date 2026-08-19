@@ -103,7 +103,12 @@
       display:flex; align-items:center; justify-content:center; color:var(--accent);
     }
     .hero-icon svg{ width:52px; height:52px; }
-    @media (max-width:640px){ .hero-icon{ display:none; } }
+    @media (max-width:640px){
+      .bento-hero .bento-body{ padding:32px 18px 28px; }
+      .hero-row{ gap:12px; }
+      .hero-icon{ width:44px; height:44px; }
+      .hero-icon svg{ width:26px; height:26px; }
+    }
     h1{ font-family:var(--font-display); font-size:clamp(22px,3.2vw,30px); margin:0 0 4px; color:var(--accent-strong); }
     p.lede{ color:var(--ink-soft); font-size:16px; max-width:56ch; margin:0 auto; }
     p.lede.en{ font-style:italic; }
