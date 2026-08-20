@@ -187,10 +187,8 @@
     .qr-hero-thumb{ width:140px; height:140px; object-fit:contain; background:#fff; border-radius:12px; border:1px solid var(--border); }
     .qr-hero-label{ font-size:13px; font-weight:700; color:var(--ink-soft); text-align:center; max-width:280px; }
 
-    .qr-mini-link{ display:inline-flex; align-items:center; gap:10px; text-decoration:none; color:var(--ink); margin-top:2px; }
-    .qr-mini-link:hover .qr-mini-label{ color:var(--accent-strong); text-decoration:underline; }
-    .qr-mini-thumb{ width:56px; height:56px; object-fit:contain; background:#fff; border-radius:8px; border:1px solid var(--border); flex:none; }
-    .qr-mini-label{ font-size:12.5px; font-weight:700; color:var(--ink-soft); }
+    .poster-links-row{ display:flex; flex-wrap:wrap; align-items:baseline; gap:6px 14px; }
+    .poster-links-row .poster-alt-link{ margin-top:0; font-size:11.5px; }
 
     .article p{ margin:0 0 12px; font-size:14.5px; color:var(--ink); max-width:66ch; }
     .article p:last-child{ margin-bottom:0; }
@@ -662,11 +660,10 @@
             <div class="bento-body">
               <h3 class="bento-title">📱 QR-Navigation · 二维码导航海报</h3>
               <a class="poster-alt-link" href="images/qr-navigation-poster-a4-de.png" target="_blank" rel="noopener">🇩🇪 Deutsche Version ansehen</a>
-              <a class="qr-mini-link" href="https://junpingkoch-web.github.io/" target="_blank" rel="noopener">
-                <img class="qr-mini-thumb" src="images/qrcode-homepage.png" alt="QR code linking to the homepage / portfolio" loading="lazy" width="56" height="56">
-                <span class="qr-mini-label">个人主页 · 作品集 · Homepage QR</span>
-              </a>
-              <a class="poster-alt-link" href="images/qr-navigation-poster-a4.png" target="_blank" rel="noopener">Poster ansehen → View poster</a>
+              <div class="poster-links-row">
+                <a class="poster-alt-link" href="https://junpingkoch-web.github.io/" target="_blank" rel="noopener">个人主页 · 作品集</a>
+                <a class="poster-alt-link" href="images/qr-navigation-poster-a4.png" target="_blank" rel="noopener">Poster ansehen → View poster</a>
+              </div>
             </div>
           </article>
 
