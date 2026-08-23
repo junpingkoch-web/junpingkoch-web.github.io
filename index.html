@@ -155,7 +155,20 @@
     .bento-thumb-link:hover img{ transform:scale(1.04); }
     .bento-caption{ font-size:11px; color:var(--ink-soft); font-style:italic; padding:6px 24px 0; margin:0; }
 
-    .bento-title{ font-family:var(--font-display); font-size:18px; line-height:1.3; margin:0; color:var(--ink); }
+    .bento-title{ font-family:var(--font-display); font-size:18px; line-height:1.3; margin:0; color:var(--ink); display:flex; align-items:flex-start; gap:10px; }
+    .tool-icon{
+      position:relative; flex:0 0 32px; width:32px; height:32px;
+      display:inline-flex; align-items:center; justify-content:center;
+      background:var(--bg); border:1px solid var(--border); border-radius:9px;
+      font-size:15px; line-height:1; overflow:visible;
+    }
+    .tool-title-text{ flex:1; min-width:0; padding-top:2px; }
+    .bento-card--featured .tool-icon{ border-color:var(--accent-strong); border-width:1.5px; }
+    .bento-card--featured .tool-icon::after{
+      content:"★"; position:absolute; top:-7px; right:-7px; width:16px; height:16px;
+      background:var(--accent-strong); color:var(--surface); border-radius:50%;
+      font-size:9.5px; line-height:16px; text-align:center;
+    }
 
     .cta-btn{
       align-self:flex-start; display:inline-block; text-decoration:none; font-weight:700; font-size:13.5px;
@@ -218,6 +231,48 @@
     .nav-links a{ color:var(--ink-soft); text-decoration:none; font-size:16px; font-weight:800; white-space:nowrap; }
     .nav-links a:hover{ color:var(--accent-strong); }
 
+    /* ---- Mobile category pill bar (sticky, complements the hamburger nav) ---- */
+    .cat-pillbar{
+      display:none; position:sticky; top:49px; z-index:90;
+      gap:8px; overflow-x:auto; padding:9px 20px;
+      background:color-mix(in srgb, var(--bg) 94%, transparent);
+      backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px);
+      border-bottom:1px solid var(--border);
+      -ms-overflow-style:none; scrollbar-width:none;
+    }
+    .cat-pillbar::-webkit-scrollbar{ display:none; }
+    .cat-pillbar a{
+      flex:0 0 auto; display:inline-flex; align-items:center; gap:5px;
+      font-size:12.5px; font-weight:700; color:var(--ink-soft);
+      background:var(--surface); border:1px solid var(--border);
+      border-radius:999px; padding:6px 12px; text-decoration:none; white-space:nowrap;
+    }
+
+    /* ---- "At a glance" overview grid: all tools, one screen, before the detailed cards ---- */
+    .glance{ margin:0 0 44px; }
+    .glance-heading{
+      font-family:var(--font-display); font-size:15px; font-weight:800; text-transform:uppercase;
+      letter-spacing:.05em; color:var(--ink-soft); margin:0 0 12px; text-align:center;
+    }
+    .glance-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:8px; }
+    @media (min-width:560px){ .glance-grid{ grid-template-columns:repeat(3,1fr); } }
+    @media (min-width:860px){ .glance-grid{ grid-template-columns:repeat(4,1fr); } }
+    .glance-item{
+      display:flex; align-items:center; gap:9px; padding:10px 11px;
+      background:var(--surface); border:1px solid var(--border); border-left:3px solid var(--tag-color, var(--accent));
+      border-radius:8px; text-decoration:none; min-height:52px;
+    }
+    .glance-icon{ font-size:16px; line-height:1; flex-shrink:0; }
+    .glance-label{ font-size:12.5px; font-weight:700; color:var(--ink); line-height:1.25; }
+    .glance-item[data-cat="featured"]{ --tag-color:var(--accent-strong); }
+    .glance-item[data-cat="everyday"]{ --tag-color:#4A5FA0; }
+    .glance-item[data-cat="travel"]{ --tag-color:#3E7A63; }
+    .glance-item[data-cat="watch"]{ --tag-color:#8A6A2E; }
+    .glance-item[data-cat="blog"]{ --tag-color:#6B4A73; }
+
+    /* ---- Featured cards: visually distinct, not just positional ---- */
+    .bento-card--featured{ border-left:3px solid var(--accent-strong); }
+
     /* ---- Nav-brand toggle for the hero bio (checkbox hack, matches nav-toggle pattern) ---- */
     .bio-toggle-input{
       position:absolute; width:1px; height:1px; padding:0; margin:-1px;
@@ -244,6 +299,7 @@
       .nav-links a:last-child{ border-bottom:none; }
       .nav-toggle-input:checked ~ .nav-links{ display:flex; }
       .site-nav-inner{ position:relative; flex-wrap:wrap; }
+      .cat-pillbar{ display:flex; }
     }
   </style>
 </head>
@@ -263,6 +319,13 @@
         <li><a href="contact.html" title="Kontakt · Contact · 联系方式">📇 Kontakt</a></li>
       </ul>
     </div>
+  </nav>
+  <nav class="cat-pillbar" aria-label="Kategorien · Categories · 分类快跳">
+    <a href="#featured">✨ Empfohlen</a>
+    <a href="#everyday">🧰 Alltag</a>
+    <a href="#travel">🗺️ Reisen</a>
+    <a href="#watch">⌚ Uhren</a>
+    <a href="#blog">📝 Blog</a>
   </nav>
   <div class="wrap">
 
@@ -308,19 +371,36 @@
       </div>
     </header>
 
+    <section class="glance" aria-label="Alle Tools auf einen Blick · All tools at a glance · 全部工具一览">
+      <p class="glance-heading">Alle Tools auf einen Blick · All Tools at a Glance · 全部工具一览</p>
+      <div class="glance-grid">
+        <a class="glance-item" data-cat="featured" href="/ai-resume-builder/" target="_blank" rel="noopener"><span class="glance-icon">📄✨</span><span class="glance-label">KI-Lebenslauf-Generator</span></a>
+        <a class="glance-item" data-cat="featured" href="/zodiac-stars/" target="_blank" rel="noopener"><span class="glance-icon">🔮✨</span><span class="glance-label">Zodiac &amp; Stars</span></a>
+        <a class="glance-item" data-cat="everyday" href="/random-grouping-website/" target="_blank" rel="noopener"><span class="glance-icon">🎲</span><span class="glance-label">Random Group Generator</span></a>
+        <a class="glance-item" data-cat="everyday" href="/timezone-planner/" target="_blank" rel="noopener"><span class="glance-icon">🕐</span><span class="glance-label">World Meeting Time Planner</span></a>
+        <a class="glance-item" data-cat="everyday" href="/countdown-timer-app/" target="_blank" rel="noopener"><span class="glance-icon">⏳🎉</span><span class="glance-label">Countdown Studio</span></a>
+        <a class="glance-item" data-cat="travel" href="/alpine-route-planner/" target="_blank" rel="noopener"><span class="glance-icon">🏔️🚤</span><span class="glance-label">Alpen-Routenplaner</span></a>
+        <a class="glance-item" data-cat="travel" href="/swiss-city-guide/" target="_blank" rel="noopener"><span class="glance-icon">🏙️🗺️</span><span class="glance-label">Schweizer Stadtreiseführer</span></a>
+        <a class="glance-item" data-cat="watch" href="/watch-price-tracker/" target="_blank" rel="noopener"><span class="glance-icon">⌚📈</span><span class="glance-label">Watch Price Trends</span></a>
+        <a class="glance-item" data-cat="watch" href="/Europe-Travel-Watch-Duty-Free-Calculator/" target="_blank" rel="noopener"><span class="glance-icon">🧳💶</span><span class="glance-label">Uhren-Steuerfrei-Rechner</span></a>
+        <a class="glance-item" data-cat="watch" href="/Secondhand-Watch-Valuator/" target="_blank" rel="noopener"><span class="glance-icon">⌚💰</span><span class="glance-label">Gebrauchtuhren-Wertschätzer</span></a>
+        <a class="glance-item" data-cat="blog" href="/watch-guide-blog/" target="_blank" rel="noopener"><span class="glance-icon">📝⌚</span><span class="glance-label">Timepieces &amp; Stars Blog</span></a>
+      </div>
+    </section>
+
     <main>
 
       <section class="bento-category" id="featured">
         <h2 class="category-heading">✨ Empfohlene Mini-Tools · Featured Mini Tools · 精选小工具</h2>
         <div class="bento-grid">
 
-          <article class="bento-card">
+          <article class="bento-card bento-card--featured">
             <a class="bento-thumb-link" href="/ai-resume-builder/" target="_blank" rel="noopener">
               <img src="images/resume-review-closeup.jpg" alt="Close-up of someone reviewing a printed resume" loading="lazy" width="1200" height="800">
             </a>
             <p class="bento-caption">Vom Blatt Papier zur dreisprachigen Version · From paper to a trilingual version</p>
             <div class="bento-body">
-              <h3 class="bento-title">📄✨ KI-Lebenslauf-Generator · AI Resume Builder</h3>
+              <h3 class="bento-title"><span class="tool-icon">📄✨</span><span class="tool-title-text">KI-Lebenslauf-Generator · AI Resume Builder</span></h3>
               <a class="cta-btn" href="/ai-resume-builder/" target="_blank" rel="noopener">Lebenslauf erstellen → Build your resume</a>
               <details class="bento-details">
                 <summary>Mehr erfahren · Learn more</summary>
@@ -348,13 +428,13 @@
             </div>
           </article>
 
-          <article class="bento-card">
+          <article class="bento-card bento-card--featured">
             <a class="bento-thumb-link" href="/zodiac-stars/" target="_blank" rel="noopener">
               <img src="images/history-zodiac-statues.jpg" alt="Traditional stone statues of the Chinese zodiac animals" loading="lazy" width="800" height="533">
             </a>
             <p class="bento-caption">Alte Steinfiguren der Tierkreiszeichen · Traditional zodiac statues</p>
             <div class="bento-body">
-              <h3 class="bento-title">🔮✨ Zodiac &amp; Stars</h3>
+              <h3 class="bento-title"><span class="tool-icon">🔮✨</span><span class="tool-title-text">Zodiac &amp; Stars</span></h3>
               <a class="cta-btn" href="/zodiac-stars/" target="_blank" rel="noopener">Trag dein Geburtsdatum ein → Zum Tool / Open the tool</a>
               <details class="bento-details">
                 <summary>Mehr erfahren · Learn more</summary>
@@ -381,7 +461,7 @@
             </a>
             <p class="bento-caption">Der Zufall entscheidet · Let chance decide</p>
             <div class="bento-body">
-              <h3 class="bento-title">🎲 Random Group Generator</h3>
+              <h3 class="bento-title"><span class="tool-icon">🎲</span><span class="tool-title-text">Random Group Generator</span></h3>
               <a class="cta-btn" href="/random-grouping-website/" target="_blank" rel="noopener">Liste einfügen und lostrommeln → Zum Tool / Open the tool</a>
               <details class="bento-details">
                 <summary>Mehr erfahren · Learn more</summary>
@@ -399,7 +479,7 @@
             </a>
             <p class="bento-caption">Zeit sichtbar machen · Making time visible</p>
             <div class="bento-body">
-              <h3 class="bento-title">🕐 World Meeting Time Planner</h3>
+              <h3 class="bento-title"><span class="tool-icon">🕐</span><span class="tool-title-text">World Meeting Time Planner</span></h3>
               <a class="cta-btn" href="/timezone-planner/" target="_blank" rel="noopener">Zeitstrahl ausprobieren → Zum Tool / Open the tool</a>
               <details class="bento-details">
                 <summary>Mehr erfahren · Learn more</summary>
@@ -417,7 +497,7 @@
             </a>
             <p class="bento-caption">Jede Sekunde zählt · Every second counts</p>
             <div class="bento-body">
-              <h3 class="bento-title">⏳🎉 Countdown Studio</h3>
+              <h3 class="bento-title"><span class="tool-icon">⏳🎉</span><span class="tool-title-text">Countdown Studio</span></h3>
               <a class="cta-btn" href="/countdown-timer-app/" target="_blank" rel="noopener">Timer starten → Zum Tool / Open the tool</a>
               <details class="bento-details">
                 <summary>Mehr erfahren · Learn more</summary>
@@ -442,7 +522,7 @@
             </a>
             <p class="bento-caption">Ein Tag in den Schweizer Alpen · A day in the Swiss Alps</p>
             <div class="bento-body">
-              <h3 class="bento-title">🏔️🚤 Alpen-Routenplaner</h3>
+              <h3 class="bento-title"><span class="tool-icon">🏔️🚤</span><span class="tool-title-text">Alpen-Routenplaner</span></h3>
               <a class="cta-btn" href="/alpine-route-planner/" target="_blank" rel="noopener">Route planen → Plan a route</a>
               <details class="bento-details">
                 <summary>Mehr erfahren · Learn more</summary>
@@ -476,7 +556,7 @@
             </a>
             <p class="bento-caption">Altstadt an der Limmat · Old town on the Limmat</p>
             <div class="bento-body">
-              <h3 class="bento-title">🏙️🗺️ Schweizer Stadtreiseführer</h3>
+              <h3 class="bento-title"><span class="tool-icon">🏙️🗺️</span><span class="tool-title-text">Schweizer Stadtreiseführer</span></h3>
               <a class="cta-btn" href="/swiss-city-guide/" target="_blank" rel="noopener">Reiseführer erstellen → Build your guide</a>
               <details class="bento-details">
                 <summary>Mehr erfahren · Learn more</summary>
@@ -517,7 +597,7 @@
             </a>
             <p class="bento-caption">Referenzpreise auf einen Blick · Reference prices at a glance</p>
             <div class="bento-body">
-              <h3 class="bento-title">⌚📈 Watch Price Trends</h3>
+              <h3 class="bento-title"><span class="tool-icon">⌚📈</span><span class="tool-title-text">Watch Price Trends</span></h3>
               <a class="cta-btn" href="/watch-price-tracker/" target="_blank" rel="noopener">Preise vergleichen → Compare prices</a>
               <details class="bento-details">
                 <summary>Mehr erfahren · Learn more</summary>
@@ -549,7 +629,7 @@
             </a>
             <p class="bento-caption">Uhrenkauf auf Reisen in Europa · Buying a watch while traveling in Europe</p>
             <div class="bento-body">
-              <h3 class="bento-title">🧳💶 Europa-Reise Uhren-Steuerfrei-Rechner</h3>
+              <h3 class="bento-title"><span class="tool-icon">🧳💶</span><span class="tool-title-text">Europa-Reise Uhren-Steuerfrei-Rechner</span></h3>
               <a class="cta-btn" href="/Europe-Travel-Watch-Duty-Free-Calculator/" target="_blank" rel="noopener">Erstattung berechnen → Calculate the refund</a>
               <details class="bento-details">
                 <summary>Mehr erfahren · Learn more</summary>
@@ -583,7 +663,7 @@
             </a>
             <p class="bento-caption">Vom Preisvergleich zur eigenen Schätzung · From price check to your own estimate</p>
             <div class="bento-body">
-              <h3 class="bento-title">⌚💰 Gebrauchtuhren-Wertschätzer</h3>
+              <h3 class="bento-title"><span class="tool-icon">⌚💰</span><span class="tool-title-text">Gebrauchtuhren-Wertschätzer</span></h3>
               <a class="cta-btn" href="/Secondhand-Watch-Valuator/" target="_blank" rel="noopener">Uhr schätzen lassen → Estimate a watch</a>
               <details class="bento-details">
                 <summary>Mehr erfahren · Learn more</summary>
@@ -624,7 +704,7 @@
             </a>
             <p class="bento-caption">Aus dem Berufsalltag im Uhrenhandel · From everyday life in watch retail</p>
             <div class="bento-body">
-              <h3 class="bento-title">📝⌚ 钟表与星辰：瑞士生活手记 · Timepieces &amp; Stars: Swiss Life Notes</h3>
+              <h3 class="bento-title"><span class="tool-icon">📝⌚</span><span class="tool-title-text">钟表与星辰：瑞士生活手记 · Timepieces &amp; Stars: Swiss Life Notes</span></h3>
               <a class="cta-btn" href="/watch-guide-blog/" target="_blank" rel="noopener">Zum Blog lesen → Read the blog</a>
               <details class="bento-details">
                 <summary>Mehr erfahren · Learn more</summary>
@@ -655,7 +735,7 @@
               <span class="qr-hero-label">综合二维码 · 直达全部工具 · All-in-one QR</span>
             </a>
             <div class="bento-body">
-              <h3 class="bento-title">📱 QR-Navigation · 二维码导航海报</h3>
+              <h3 class="bento-title"><span class="tool-icon">📱</span><span class="tool-title-text">QR-Navigation · 二维码导航海报</span></h3>
               <a class="poster-alt-link" href="images/qr-navigation-poster-a4-de.png" target="_blank" rel="noopener">🇩🇪 Deutsche Version ansehen</a>
               <a class="poster-alt-link" href="https://junpingkoch-web.github.io/" target="_blank" rel="noopener">个人主页 · 作品集</a>
               <a class="cta-btn" href="images/qr-navigation-poster-a4.png" target="_blank" rel="noopener">Poster ansehen → View poster</a>
