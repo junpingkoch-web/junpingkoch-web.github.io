@@ -256,8 +256,9 @@
     /* ---- "At a glance" overview grid: all tools, one screen, before the detailed cards ---- */
     .glance{ margin:0 0 44px; }
     .glance-heading{
-      font-family:var(--font-display); font-size:clamp(20px,2.8vw,26px); font-weight:900; text-transform:uppercase;
-      letter-spacing:.05em; color:var(--accent-strong); margin:0 0 16px; text-align:center;
+      font-family:var(--font-display); font-size:clamp(19px,2.6vw,23px); font-weight:800; text-transform:uppercase;
+      letter-spacing:.04em; color:var(--accent-strong); margin:0 0 16px; text-align:center;
+      word-break:keep-all;
     }
     .glance-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:8px; }
     @media (min-width:560px){ .glance-grid{ grid-template-columns:repeat(3,1fr); } }
