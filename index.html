@@ -7,7 +7,7 @@
   <meta name="description" content="Kostenlose Browser-Tools von Junping Koch: Tierkreiszeichen-Rechner, Zufallsgruppen-Generator, Zeitzonen-Planer, Countdown Studio, Uhren-Preistrends, ein Europa-Reise Uhren-Steuerfrei-Rechner, ein Gebrauchtuhren-Wertschätzer, ein Uhren-Blog, ein Alpen-Routenplaner, ein Schweizer Stadtreiseführer und ein KI-Lebenslauf-Generator. Keine Anmeldung, keine Datenspeicherung.">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://junpingkoch-web.github.io/">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%9C%A8%3C/text%3E%3C/svg%3E">
+  <link rel="icon" type="image/png" href="images/favicon-logo.png">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Junping Koch — Kostenlose Web-Tools">
   <meta property="og:description" content="Kostenlose Browser-Tools von Junping Koch: Tierkreiszeichen-Rechner, Zufallsgruppen-Generator, Zeitzonen-Planer, Countdown Studio, Uhren-Preistrends, ein Europa-Reise Uhren-Steuerfrei-Rechner, ein Gebrauchtuhren-Wertschätzer, ein Uhren-Blog, ein Alpen-Routenplaner, ein Schweizer Stadtreiseführer und ein KI-Lebenslauf-Generator. Keine Anmeldung, keine Datenspeicherung.">
@@ -103,11 +103,13 @@
       display:flex; align-items:center; justify-content:center; color:var(--accent);
     }
     .hero-icon svg{ width:52px; height:52px; }
+    .hero-icon img{ width:62px; height:auto; }
     @media (max-width:640px){
       .bento-hero .bento-body{ padding:32px 18px 28px; }
       .hero-row{ gap:12px; }
       .hero-icon{ width:44px; height:44px; }
       .hero-icon svg{ width:26px; height:26px; }
+      .hero-icon img{ width:32px; height:auto; }
     }
     h1{ font-family:var(--font-display); font-size:clamp(22px,3.2vw,30px); margin:0 0 4px; color:var(--accent-strong); }
     p.lede{ color:var(--ink-soft); font-size:16px; max-width:56ch; margin:0 auto; }
@@ -229,7 +231,8 @@
       backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); border-bottom:1px solid var(--border);
     }
     .site-nav-inner{ max-width:1080px; margin:0 auto; padding:12px 20px; display:flex; align-items:center; justify-content:space-between; gap:16px; }
-    .site-nav .brand{ font-family:var(--font-display); font-weight:800; font-size:16px; color:var(--accent-strong); text-decoration:none; flex:0 0 auto; }
+    .site-nav .brand{ font-family:var(--font-display); font-weight:800; font-size:16px; color:var(--accent-strong); text-decoration:none; flex:0 0 auto; display:inline-flex; align-items:center; }
+    .brand-logo{ height:30px; width:auto; display:block; }
     .nav-toggle-input{ display:none; }
     .nav-toggle-label{ display:none; font-size:20px; line-height:1; cursor:pointer; color:var(--accent-strong); padding:4px 6px; }
     .nav-links{ display:flex; flex-wrap:wrap; gap:20px; list-style:none; margin:0; padding:0; }
@@ -313,7 +316,7 @@
   <input type="checkbox" id="bio-toggle" class="bio-toggle-input">
   <nav class="site-nav">
     <div class="site-nav-inner">
-      <label class="brand" for="bio-toggle" title="Junping Koch · Ein-/ausklappen · Show/hide intro · 展开/收起简介">J.K</label>
+      <label class="brand" for="bio-toggle" title="Junping Koch · Ein-/ausklappen · Show/hide intro · 展开/收起简介"><img class="brand-logo" src="images/logo-icon.png" alt="Junping Koch" width="500" height="353"></label>
       <input type="checkbox" id="nav-toggle" class="nav-toggle-input">
       <label for="nav-toggle" class="nav-toggle-label" aria-label="Menü · Menu · 菜单">☰</label>
       <ul class="nav-links">
@@ -339,11 +342,7 @@
       <div class="bento-body">
         <div class="hero-row">
           <div class="hero-icon hero-icon-left" aria-hidden="true">
-            <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect x="15" y="15" width="34" height="34" rx="7" stroke="currentColor" stroke-width="2.4"/>
-              <path d="M24 8v7M32 8v7M40 8v7M24 49v7M32 49v7M40 49v7M8 24h7M8 32h7M8 40h7M49 24h7M49 32h7M49 40h7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              <text x="32" y="33" text-anchor="middle" dominant-baseline="central" font-family="-apple-system, Segoe UI, Arial, sans-serif" font-size="18" font-weight="800" fill="currentColor">AI</text>
-            </svg>
+            <img src="images/logo-icon.png" alt="" width="500" height="353">
           </div>
           <div class="hero-text-col">
             <h1>Junping Koch</h1>
