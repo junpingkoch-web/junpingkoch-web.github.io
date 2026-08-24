@@ -110,11 +110,25 @@
       .hero-icon{ width:44px; height:44px; }
       .hero-icon svg{ width:26px; height:26px; }
       .hero-icon img{ width:32px; height:auto; }
+      .hero-tags.hero-tags{ gap:6px; }
+      .hero-tag.hero-tag{ font-size:11px; padding:4px 9px; }
+      .hero-slogan.hero-slogan{ font-size:11.5px; }
     }
     h1{ font-family:var(--font-display); font-size:clamp(22px,3.2vw,30px); margin:0 0 4px; color:var(--accent-strong); }
     p.lede{ color:var(--ink-soft); font-size:16px; max-width:56ch; margin:0 auto; }
     p.lede.en{ font-style:italic; }
     .hero-tagline{ margin:0; font-size:14px; font-weight:700; color:var(--ink-soft); }
+    .hero-tags{ display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin:12px 0 0; }
+    .hero-tag{
+      display:inline-flex; align-items:center; gap:5px; font-size:12px; font-weight:700;
+      color:var(--ink-soft); background:var(--bg); border:1px solid var(--border);
+      border-radius:999px; padding:5px 11px; white-space:nowrap;
+    }
+    .hero-tag-icon{ font-size:13px; line-height:1; }
+    .hero-slogan{
+      font-size:12.5px; font-weight:700; color:var(--accent-strong); letter-spacing:.02em;
+      margin:10px 0 0;
+    }
     .hero-expand-hint{
       display:inline-block; margin:2px auto 0; font-size:12.5px; font-weight:700;
       color:var(--accent-strong); cursor:pointer; user-select:none;
@@ -347,6 +361,14 @@
           <div class="hero-text-col">
             <h1>Junping Koch</h1>
             <p class="hero-tagline">AI Sales Development · Ex-Watch Advisor</p>
+            <div class="hero-tags">
+              <span class="hero-tag" title="Luxus-Einzelhandel · Luxury Retail · 高端零售"><span class="hero-tag-icon">⌚</span>Luxury Retail</span>
+              <span class="hero-tag" title="Kundenerfolg · Client Success · 客户成功"><span class="hero-tag-icon">🤝</span>Client Success</span>
+              <span class="hero-tag" title="Technologie · Technology · 科技"><span class="hero-tag-icon">🤖</span>Technology</span>
+              <span class="hero-tag" title="Globale Denkweise · Global Mindset · 全球视野"><span class="hero-tag-icon">🌍</span>Global Mindset</span>
+              <span class="hero-tag" title="Schweizer Qualität · Swiss Quality · 瑞士品质"><span class="hero-tag-icon">🏔️</span>Swiss Quality</span>
+            </div>
+            <p class="hero-slogan">Menschen, Technologie &amp; Chancen verbinden · Connecting People, Technology &amp; Opportunities · 连接人、科技与机遇</p>
             <label for="bio-toggle" class="hero-expand-hint">
               <span class="hero-expand-hint-more">↓ Mehr über mich · Show more</span>
               <span class="hero-expand-hint-less">↑ Weniger anzeigen · Show less</span>

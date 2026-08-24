@@ -58,7 +58,18 @@
   .wrap{ max-width:760px; margin:0 auto; padding:56px 20px 64px; }
   .bento-card{ background:var(--surface); border:1px solid var(--border); border-radius:14px; box-shadow:0 1px 2px rgba(0,0,0,.04); overflow:hidden; margin-bottom:24px; }
   .bento-body{ padding:32px 32px 28px; }
-  h1{ font-family:var(--font-display); font-size:clamp(24px,4vw,32px); margin:0 0 18px; color:var(--accent-strong); }
+  h1{ font-family:var(--font-display); font-size:clamp(24px,4vw,32px); margin:0 0 18px; color:var(--accent-strong); text-align:center; }
+  .about-identity{ text-align:center; margin-bottom:24px; }
+  .about-logo{ width:110px; height:auto; margin:0 auto 14px; display:block; }
+  .about-tagline{ font-size:14px; font-weight:700; color:var(--ink-soft); margin:0 0 14px; }
+  .hero-tags{ display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin:0 0 14px; }
+  .hero-tag{
+    display:inline-flex; align-items:center; gap:5px; font-size:12px; font-weight:700;
+    color:var(--ink-soft); background:var(--bg); border:1px solid var(--border);
+    border-radius:999px; padding:5px 11px; white-space:nowrap;
+  }
+  .hero-tag-icon{ font-size:13px; line-height:1; }
+  .hero-slogan{ font-size:12.5px; font-weight:700; color:var(--accent-strong); letter-spacing:.02em; margin:0; }
   .lang-label{ font-size:11.5px; font-weight:700; text-transform:uppercase; letter-spacing:.05em; color:var(--ink-soft); margin:22px 0 8px; }
   .lang-label:first-of-type{ margin-top:0; }
   p{ margin:0 0 12px; font-size:15px; max-width:66ch; }
@@ -79,6 +90,18 @@
 
   <header class="bento-card">
     <div class="bento-body">
+      <div class="about-identity">
+        <img class="about-logo" src="images/logo-icon.png" alt="Junping Koch" width="500" height="353">
+        <p class="about-tagline">AI Sales Development · Ex-Watch Advisor</p>
+        <div class="hero-tags">
+          <span class="hero-tag" title="Luxus-Einzelhandel · Luxury Retail · 高端零售"><span class="hero-tag-icon">⌚</span>Luxury Retail</span>
+          <span class="hero-tag" title="Kundenerfolg · Client Success · 客户成功"><span class="hero-tag-icon">🤝</span>Client Success</span>
+          <span class="hero-tag" title="Technologie · Technology · 科技"><span class="hero-tag-icon">🤖</span>Technology</span>
+          <span class="hero-tag" title="Globale Denkweise · Global Mindset · 全球视野"><span class="hero-tag-icon">🌍</span>Global Mindset</span>
+          <span class="hero-tag" title="Schweizer Qualität · Swiss Quality · 瑞士品质"><span class="hero-tag-icon">🏔️</span>Swiss Quality</span>
+        </div>
+        <p class="hero-slogan">Menschen, Technologie &amp; Chancen verbinden · Connecting People, Technology &amp; Opportunities · 连接人、科技与机遇</p>
+      </div>
       <h1>Über mich · About Me · 关于我</h1>
 
       <p class="lang-label">Deutsch</p>
