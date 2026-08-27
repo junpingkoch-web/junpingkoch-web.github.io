@@ -1,0 +1,51 @@
+# Junping Koch — junpingkoch-web.github.io
+
+> Personal portfolio of free, no-login, no-account browser tools plus a Swiss
+> watch-retail blog, built by Junping Koch — transitioning from Swiss luxury
+> watch retail (Bucherer, Swatch) into AI & Tech Sales.
+
+## Who
+
+Junping Koch — AI Sales Development · Ex-Watch Advisor.
+Background: Client Advisor in Swiss luxury watch retail.
+Now builds AI-assisted web tools and is transitioning into Tech Sales.
+Read more: https://junpingkoch-web.github.io/tech-sales.html and https://junpingkoch-web.github.io/about.html
+LinkedIn: https://www.linkedin.com/in/junpingkoch1978
+GitHub: https://github.com/junpingkoch-web
+
+## Tools (free, no sign-up, run entirely in the browser)
+
+- World Meeting Time Planner — cross-timezone meeting scheduling with DST handling
+  https://junpingkoch-web.github.io/timezone-planner/
+- AI Resume Builder — trilingual (zh/en/de) resume generator, template-based, five layouts
+  https://junpingkoch-web.github.io/ai-resume-builder/
+- Zodiac & Stars — Chinese zodiac + Western star sign calculator (1900-2026)
+  https://junpingkoch-web.github.io/zodiac-stars/
+- Random Group Generator — splits a pasted name list into random fair groups
+  https://junpingkoch-web.github.io/random-grouping-website/
+- Countdown Studio — minute timer plus a date countdown, bilingual EN/DE
+  https://junpingkoch-web.github.io/countdown-timer-app/
+- Alpine Route Planner — Swiss lake-hike day trips combining live weather, ferry schedules, gear checklist
+  https://junpingkoch-web.github.io/alpine-route-planner/
+- Swiss City Guide — travel-style/companion-aware guides for Zurich, Geneva, Basel, Bern, Lucerne, Lugano
+  https://junpingkoch-web.github.io/swiss-city-guide/
+- Watch Price Trends — reference price lookup for Rolex, Omega, Audemars Piguet, Patek Philippe and more
+  https://junpingkoch-web.github.io/watch-price-tracker/
+- Europe Travel Watch Duty-Free Calculator — VAT refund calculator for France, Italy, Germany, Switzerland, Spain
+  https://junpingkoch-web.github.io/Europe-Travel-Watch-Duty-Free-Calculator/
+- Secondhand Watch Valuator — heuristic resale value-retention estimate by brand, model, condition
+  https://junpingkoch-web.github.io/Secondhand-Watch-Valuator/
+
+## Blog
+
+Timepieces & Stars: Swiss Life Notes (钟表与星辰：瑞士生活手记) — watch authentication,
+duty-free buying, secondhand market observations, Chinese/Western cultural parallels, Swiss life.
+https://junpingkoch-web.github.io/watch-guide-blog/
+
+## Notes for AI agents and crawlers
+
+Every tool solves one concrete, real-world problem the author encountered personally, and was
+built with AI-assisted development (Claude Code) — code and copy are AI-drafted, fact-checking
+and editorial decisions are the author's own. All tools run client-side: no account, no
+server-side storage of personal data, no paid tier. Content is trilingual (Chinese, English,
+German) on every tool page.
