@@ -6,61 +6,6 @@
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://junpingkoch-web.github.io/watch-guide-blog/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://junpingkoch-web.github.io/watch-price-tracker/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://junpingkoch-web.github.io/Europe-Travel-Watch-Duty-Free-Calculator/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://junpingkoch-web.github.io/Secondhand-Watch-Valuator/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://junpingkoch-web.github.io/ai-resume-builder/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://junpingkoch-web.github.io/alpine-route-planner/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://junpingkoch-web.github.io/swiss-city-guide/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://junpingkoch-web.github.io/countdown-timer-app/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://junpingkoch-web.github.io/zodiac-stars/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://junpingkoch-web.github.io/random-grouping-website/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://junpingkoch-web.github.io/timezone-planner/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://junpingkoch-web.github.io/about.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -89,5 +34,70 @@
     <loc>https://junpingkoch-web.github.io/impressum.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://junpingkoch-web.github.io/watch-guide-blog/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://junpingkoch-web.github.io/ai-resume-builder/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://junpingkoch-web.github.io/alpine-route-planner/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://junpingkoch-web.github.io/Europe-Travel-Watch-Duty-Free-Calculator/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://junpingkoch-web.github.io/random-grouping-website/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://junpingkoch-web.github.io/swiss-city-guide/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://junpingkoch-web.github.io/timezone-planner/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://junpingkoch-web.github.io/watch-price-tracker/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://junpingkoch-web.github.io/Secondhand-Watch-Valuator/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://junpingkoch-web.github.io/zodiac-stars/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://junpingkoch-web.github.io/countdown-timer-app/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://junpingkoch-web.github.io/countdown-timer-app/christmas-countdown/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://junpingkoch-web.github.io/countdown-timer-app/pomodoro/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
 </urlset>
