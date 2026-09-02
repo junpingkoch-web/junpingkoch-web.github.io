@@ -1,5 +1,9 @@
 User-agent: *
 Allow: /
+Disallow: /watch-guide-blog/tags/
+Disallow: /watch-guide-blog/categories/
+Disallow: /watch-guide-blog/en/tags/
+Disallow: /watch-guide-blog/en/categories/
 
 Sitemap: https://junpingkoch-web.github.io/sitemap.xml
 Sitemap: https://junpingkoch-web.github.io/watch-guide-blog/sitemap.xml
