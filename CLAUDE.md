@@ -12,7 +12,15 @@
 - `about.html` / `contact.html` / `privacy.html` / `terms.html` — 信任页
 - `images/` — 卡片配图（来自 Unsplash，免授权费）
 - `ads.txt` — 真实 AdSense publisher 行，可直接复用，不是占位符
-- `sitemap.xml`
+- `sitemap.xml` — **不要手工编辑**，改用 `generate_sitemap.py` 重新生成（见下）
+- `generate_sitemap.py` — 2026-09-02 新增，一键重生成 `sitemap.xml`。这是全站唯一真正生效的
+  sitemap（`robots.txt` 只声明了根仓库这份 + `watch-guide-blog` 自己 Hugo 生成的那份，其余每个
+  sibling 工具仓库自己的 `sitemap.xml` 都没被任何 robots.txt 引用，等于死文件，不用管）。
+  脚本按 `git remote get-url origin` 解析每个 sibling 仓库的真实部署 slug，**不是拿本地文件夹名**
+  ——`watch-valuator` 文件夹实际部署在 `Secondhand-Watch-Valuator/`，两者不一致。新增一个工具/
+  给某个工具加子页面（如 `countdown-timer-app/pomodoro/`）后，改脚本顶部的 `SIBLING_REPOS`/
+  `SUB_PAGES` 列表再跑一遍，不要手改 XML。`swiss-boarding-schools` 目前还没有 `.git`/没推送到
+  GitHub，故意排除在列表外，等它真正上线了再加回去。
 
 ## 首页 Bento 卡片约定
 详细结构规则见 `.claude/rules/bento-card-structure.md`（按路径作用域只在改 `index.html` 时加载）。

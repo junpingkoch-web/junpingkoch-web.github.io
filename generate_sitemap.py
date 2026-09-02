@@ -10,10 +10,17 @@ watch-guide-blog is the one exception: it's a Hugo site with its own separately
 generated sitemap.xml (also declared in robots.txt), so only its home page is
 listed here - its posts are NOT walked into this file.
 
+<lastmod> is read from each file's own repo (`git log -1 --format=%cd --date=short
+-- <path>`, run with the right repo as -C, since a sibling tool's file isn't part of
+THIS repo's git history) rather than local disk mtime, which changes on every clone/
+checkout and would produce a fake "just updated" date unrelated to real content
+changes. Falls back to disk mtime only for an uncommitted file.
+
 Run from this repo's root:  python generate_sitemap.py
 """
 import subprocess
 import sys
+from datetime import date
 from pathlib import Path
 from xml.sax.saxutils import escape
 
@@ -81,13 +88,36 @@ def git_slug(repo_path: Path):
     return url.rsplit("/", 1)[-1]
 
 
+def lastmod(repo_path: Path, rel_path: str = None):
+    """Last-commit date (YYYY-MM-DD) for a path, scoped to its own repo. Falls back
+    to disk mtime for an uncommitted file, and to today for a repo-wide fallback
+    (watch-guide-blog's single entry doesn't map to one file)."""
+    cmd = ["git", "-C", str(repo_path), "log", "-1", "--format=%cd", "--date=short"]
+    if rel_path:
+        cmd += ["--", rel_path]
+    try:
+        result = subprocess.run(cmd, capture_output=True, text=True, check=True)
+        out = result.stdout.strip()
+        if out:
+            return out
+    except (subprocess.CalledProcessError, FileNotFoundError):
+        pass
+    target = (repo_path / rel_path) if rel_path else repo_path
+    if target.is_file():
+        return date.fromtimestamp(target.stat().st_mtime).isoformat()
+    return date.today().isoformat()
+
+
 def main():
-    entries = []  # (loc, priority, changefreq)
+    entries = []  # (loc, priority, changefreq, lastmod_date)
 
     for path, priority, changefreq in ROOT_PAGES:
-        entries.append((BASE_URL + path, priority, changefreq))
+        rel = path if path else "index.html"
+        entries.append((BASE_URL + path, priority, changefreq, lastmod(ROOT_REPO, rel)))
 
-    entries.append((BASE_URL + WATCH_GUIDE_BLOG[0] + "/", WATCH_GUIDE_BLOG[1], WATCH_GUIDE_BLOG[2]))
+    blog_repo = SIBLINGS_DIR / WATCH_GUIDE_BLOG[0]
+    blog_lastmod = lastmod(blog_repo) if blog_repo.is_dir() else date.today().isoformat()
+    entries.append((BASE_URL + WATCH_GUIDE_BLOG[0] + "/", WATCH_GUIDE_BLOG[1], WATCH_GUIDE_BLOG[2], blog_lastmod))
 
     for repo_path, priority, changefreq in SIBLING_REPOS:
         if not repo_path.is_dir():
@@ -96,18 +126,20 @@ def main():
         slug = git_slug(repo_path)
         if slug is None:
             continue
-        entries.append((BASE_URL + slug + "/", priority, changefreq))
+        entries.append((BASE_URL + slug + "/", priority, changefreq, lastmod(repo_path, "index.html")))
 
         for sub, sub_priority, sub_changefreq in SUB_PAGES.get(repo_path.name, []):
             if (repo_path / sub / "index.html").is_file():
-                entries.append((BASE_URL + slug + "/" + sub + "/", sub_priority, sub_changefreq))
+                sub_rel = f"{sub}/index.html"
+                entries.append((BASE_URL + slug + "/" + sub + "/", sub_priority, sub_changefreq, lastmod(repo_path, sub_rel)))
             else:
                 print(f"WARNING: expected sub-page {repo_path / sub} not found - skipping", file=sys.stderr)
 
     lines = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
-    for loc, priority, changefreq in entries:
+    for loc, priority, changefreq, lastmod_date in entries:
         lines.append("  <url>")
         lines.append(f"    <loc>{escape(loc)}</loc>")
+        lines.append(f"    <lastmod>{lastmod_date}</lastmod>")
         lines.append(f"    <changefreq>{changefreq}</changefreq>")
         lines.append(f"    <priority>{priority}</priority>")
         lines.append("  </url>")
