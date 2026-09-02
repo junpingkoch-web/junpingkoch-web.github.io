@@ -28,6 +28,16 @@
   线上共享域名层面成立，本地并不存在这个子目录，第一版脚本把这个当本地死链报了 37 条假阳性。
   外部链接检测对 LinkedIn/Outlook 这类站点会有已知误报（未登录的自动化请求会被重定向到登录页，
   不代表链接真的失效），报告里标了"疑似"的要在真实浏览器里点开确认，不要直接当真死链处理。
+- `geo_audit.py` — 2026-09-02 新增，全站 GEO/技术 SEO 健康看板（`python geo_audit.py`，
+  纯标准库无需装包）。检查线上域名的 robots.txt（AI 爬虫是否被屏蔽）、sitemap.xml 格式、
+  每个页面的 canonical/meta description 长度（用 `.claude/skills/adsense-portfolio-maintenance`
+  里那份 CJK 宽度公式）、工具页的 FAQPage/WebApplication schema、法律页可访问性，按
+  Critical/High/Medium/Low 生成一份**纯静态**的 `geo_audit_dashboard.html`（已加进
+  `.gitignore`，每次跑都会覆盖，不提交）。没有后台服务，复查就是重新跑脚本+刷新文件，
+  不支持页面内一键重新检测。**解析线上 HTML 时正则要同时兼容带引号和不带引号的属性值**
+  ——`watch-guide-blog` 是 Hugo 构建，压缩输出会把没有空格的属性值（如 `name=description`、
+  `href=<url>`）的引号去掉，只匹配 `name="description"` 这种带引号写法会对这个仓库产生假阳性
+  （第一版就踩了这个坑，报了"缺 canonical"和"缺 description"两条假问题，其实都在，只是没加引号）。
 
 ## 首页 Bento 卡片约定
 详细结构规则见 `.claude/rules/bento-card-structure.md`（按路径作用域只在改 `index.html` 时加载）。
