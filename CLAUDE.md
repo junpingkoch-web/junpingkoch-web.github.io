@@ -21,6 +21,13 @@
   给某个工具加子页面（如 `countdown-timer-app/pomodoro/`）后，改脚本顶部的 `SIBLING_REPOS`/
   `SUB_PAGES` 列表再跑一遍，不要手改 XML。`swiss-boarding-schools` 目前还没有 `.git`/没推送到
   GitHub，故意排除在列表外，等它真正上线了再加回去。
+- `check_dead_links.py` — 2026-09-02 新增，全站死链/失效图片排查（`python check_dead_links.py`，
+  需要 `pip install beautifulsoup4`）。跟 `generate_sitemap.py` 一样知道所有 sibling 仓库路径，
+  同样的坑也同样适用：**根相对路径链接（`/xxx`）不管写在哪个仓库的 HTML 里，都不能按本地文件系统
+  解析**——哪怕是这个根仓库自己的首页，链接到 `/ai-resume-builder/` 这类其他工具时，那个路径也只在
+  线上共享域名层面成立，本地并不存在这个子目录，第一版脚本把这个当本地死链报了 37 条假阳性。
+  外部链接检测对 LinkedIn/Outlook 这类站点会有已知误报（未登录的自动化请求会被重定向到登录页，
+  不代表链接真的失效），报告里标了"疑似"的要在真实浏览器里点开确认，不要直接当真死链处理。
 
 ## 首页 Bento 卡片约定
 详细结构规则见 `.claude/rules/bento-card-structure.md`（按路径作用域只在改 `index.html` 时加载）。
