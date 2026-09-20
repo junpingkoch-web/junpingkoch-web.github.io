@@ -42,9 +42,6 @@ SIBLING_REPOS = [
     (SIBLINGS_DIR / "watch-valuator", "0.8", "weekly"),
     (SIBLINGS_DIR / "zodiac-stars", "0.8", "weekly"),
     (Path(r"C:\Users\junpi\My Project\countdown-timer-app"), "0.8", "weekly"),
-    # swiss-boarding-schools intentionally excluded: no .git / not pushed yet as of
-    # 2026-09-02 (see ecosystem memory 2026-08-21 entry) - would 404 if listed here.
-    # Add it once it's actually live on GitHub Pages.
 ]
 
 # Sub-pages inside a sibling repo that deserve their own sitemap entry, keyed by the

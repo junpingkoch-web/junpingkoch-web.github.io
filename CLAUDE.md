@@ -19,8 +19,7 @@
   脚本按 `git remote get-url origin` 解析每个 sibling 仓库的真实部署 slug，**不是拿本地文件夹名**
   ——`watch-valuator` 文件夹实际部署在 `Secondhand-Watch-Valuator/`，两者不一致。新增一个工具/
   给某个工具加子页面（如 `countdown-timer-app/pomodoro/`）后，改脚本顶部的 `SIBLING_REPOS`/
-  `SUB_PAGES` 列表再跑一遍，不要手改 XML。`swiss-boarding-schools` 目前还没有 `.git`/没推送到
-  GitHub，故意排除在列表外，等它真正上线了再加回去。
+  `SUB_PAGES` 列表再跑一遍，不要手改 XML。
 - `check_dead_links.py` — 2026-09-02 新增，全站死链/失效图片排查（`python check_dead_links.py`，
   需要 `pip install beautifulsoup4`）。跟 `generate_sitemap.py` 一样知道所有 sibling 仓库路径，
   同样的坑也同样适用：**根相对路径链接（`/xxx`）不管写在哪个仓库的 HTML 里，都不能按本地文件系统
